@@ -1,17 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import About from './features/about/About'
+import { Routes, Route } from "react-router-dom";
+import About from "./features/about/About";
+import ContactUS from "./features/contact_us/ContactUS";
+import Favourite from "./features/favourite/Favourite";
+import Home from "./features/home/Home";
+import Listing from "./features/Listing/Listing";
+import Login from "./features/login/Login";
+import Profile from "./features/profile/Profile";
+import SignIn from "./features/signIn/SignIn";
+import PropertyDetails from "./features/property_details/PropertyDetails";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-white">
-      <About/>
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<ContactUS />} />
+      <Route path="/favourite" element={<Favourite />} />
+      <Route path="/listing" element={<Listing />} />
+      <Route path="/listing/:id" element={<PropertyDetails />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/signin" element={<SignIn />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
