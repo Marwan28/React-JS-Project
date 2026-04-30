@@ -31,13 +31,10 @@ const supabaseApi = {
   // GET by ID
   getById: async (table, id) => {
     try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`,
-        {
-          method: "GET",
-          headers: getHeaders(),
-        }
-      );
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+        method: "GET",
+        headers: getHeaders(),
+      });
 
       return await res.json();
     } catch (error) {
@@ -68,14 +65,11 @@ const supabaseApi = {
   // UPDATE
   update: async (table, id, data) => {
     try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`,
-        {
-          method: "PATCH",
-          headers: getHeaders(),
-          body: JSON.stringify(data),
-        }
-      );
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+        method: "PATCH",
+        headers: getHeaders(),
+        body: JSON.stringify(data),
+      });
 
       return await res.json();
     } catch (error) {
@@ -87,18 +81,36 @@ const supabaseApi = {
   // DELETE
   remove: async (table, id) => {
     try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`,
-        {
-          method: "DELETE",
-          headers: getHeaders(),
-        }
-      );
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, {
+        method: "DELETE",
+        headers: getHeaders(),
+      });
 
       return res.status === 204 ? true : await res.json();
     } catch (error) {
       console.error("DELETE error:", error);
       return false;
+    }
+  },
+
+  // GET with filters
+  getWithFilter: async (table, filters = {}) => {
+    try {
+      let query = "";
+
+      Object.entries(filters).forEach(([key, value], index) => {
+        query += `${index === 0 ? "?" : "&"}${key}=eq.${value}`;
+      });
+
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}${query}`, {
+        method: "GET",
+        headers: getHeaders(),
+      });
+
+      return await res.json();
+    } catch (error) {
+      console.error("FILTER GET error:", error);
+      return null;
     }
   },
 };

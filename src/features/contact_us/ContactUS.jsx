@@ -2,7 +2,7 @@ import ContactHero from "./components/ContactHero";
 import ContactInfo from "./components/ContactInfo";
 import ContactForm from "./components/ContactForm";
 import MapPlaceholder from "./components/MapPlaceholder";
-import Footer from "./components/Footer";
+import Footer from "../../components/Footer";
 
 export default function ContactUS() {
   return (

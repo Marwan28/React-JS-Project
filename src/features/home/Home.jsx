@@ -1,9 +1,17 @@
-import React from 'react'
+import Footer from "../../components/Footer";
+import HeroSection from "./components/HeroSection";
+import HomeFeaturesList from "./components/HomeFeaturesList";
+import ReadyToFindHome from "./components/ReadyToFindHome";
+import FeaturedPropertyList from "./components/FeaturedPropertyList";
 
 export default function Home() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <HeroSection />
+      <HomeFeaturesList />
+      <FeaturedPropertyList />
+      <ReadyToFindHome />
+      <Footer />
+    </>
+  );
 }

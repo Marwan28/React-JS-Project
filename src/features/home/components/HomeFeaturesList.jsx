@@ -1,19 +1,20 @@
-
-import { Home, TrendingUp, MapPin } from "lucide-react";
+import { AiFillHome } from "react-icons/ai";
+import { FaChartLine } from "react-icons/fa";
+import { GoLocation } from "react-icons/go";
 
 const cards = [
   {
-    icon: <Home className="w-8 h-8 text-[#183D4B]" />,
+    icon: <AiFillHome className="w-8 h-8 text-[#183D4B]" />,
     title: "Premium Properties",
     desc: "Curated selection of the finest luxury estates worldwide",
   },
   {
-    icon: <TrendingUp className="w-8 h-8 text-[#183D4B]" />,
+    icon: <FaChartLine className="w-8 h-8 text-[#183D4B]" />,
     title: "Expert Guidance",
     desc: "Professional support throughout your property journey",
   },
   {
-    icon: <MapPin className="w-8 h-8 text-[#183D4B]" />,
+    icon: <GoLocation className="w-8 h-8 text-[#183D4B]" />,
     title: "Prime Locations",
     desc: "Properties in the world's most sought-after destinations",
   },
