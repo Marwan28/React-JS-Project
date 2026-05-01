@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import About from "./features/about/About";
 import ContactUS from "./features/contact_us/ContactUS";
 import Favourite from "./features/favourite/Favourite";
@@ -11,10 +12,9 @@ import Home from "./features/home/Home";
 import GuestHeader from "./components/header/GuestHeader";
 import SignUp from "./features/signUp/SignUp";
 
-
-const isAuthenticated = false; // Set to true if user is logged in
-
 function App() {
+  const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
+
   return (
     <>
       {isAuthenticated ? <Header /> : <GuestHeader />}
