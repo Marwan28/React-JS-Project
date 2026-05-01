@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import supabaseApi from '../../config/supabaseApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Loader2, ChevronLeft } from 'lucide-react';
 import { addToHistory } from '../../Redux/Reducer/historySlice';
 
@@ -12,7 +12,7 @@ import Footer from '../../components/Footer';
 
 const PropertyDetails = () => {
   const { id } = useParams();
-  const history = useSelector((state) => state.history.viewedProperties);
+  //  const history = useSelector((state) => state.history.viewedProperties);
   const [property, setProperty] = useState(null);
   const [images, setImages] = useState([]);
   const [activeImage, setActiveImage] = useState(0);
@@ -26,12 +26,22 @@ const PropertyDetails = () => {
         const data = await supabaseApi.getById('properties', id);
         if (data && data.length > 0) {
           const mainProperty = data[0];
-          console.log("data from server:", mainProperty);
           setProperty(mainProperty);
 
           if (mainProperty.id) {
-            console.log("sending to history:", mainProperty);
-            dispatch(addToHistory(mainProperty));
+          
+            dispatch(addToHistory({
+              id: mainProperty.id,
+              title: mainProperty.title,
+              image: mainProperty.image,
+              location: mainProperty.city || mainProperty.address,
+              price: mainProperty.price, 
+              bedrooms: mainProperty.bedrooms, 
+              bathrooms: mainProperty.bathrooms, 
+              area: mainProperty.area,
+              type: mainProperty.type, 
+              featured: mainProperty.featured
+            }));
           }
 
           const propertyImages = await supabaseApi.get('property_images');
@@ -43,11 +53,12 @@ const PropertyDetails = () => {
           }
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error fetching property:", error);
       } finally {
         setLoading(false);
       }
     };
+
     if (id) fetchPropertyData();
   }, [id, dispatch]);
 
@@ -57,10 +68,7 @@ const PropertyDetails = () => {
     </div>
   );
 
-  console.log("history:", history);
-
   if (!property) return <div className="text-center py-20 text-2xl font-bold">Property not found!</div>;
-
 
   return (
     <div className="bg-[#f8f9fa] min-h-screen font-sans">
