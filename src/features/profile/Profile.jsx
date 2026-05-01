@@ -14,7 +14,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4"> 
+    <div className="min-h-screen bg-gray-100 p-4" style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#f5f4f0" }}> 
      
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-20"> 
 

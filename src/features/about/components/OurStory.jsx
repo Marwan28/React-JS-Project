@@ -8,11 +8,11 @@ function OurStory() {
         
       
         <div>
-          <h2 className='text-4xl font-bold text-[#1a1a1a] font-serif mb-8'>
+          <h2 className='text-4xl font-bold text-[#1a1a1a]  mb-8'>
             Our Story
           </h2>
 
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed font-serif">
+          <div className="space-y-6 text-gray-600 text-lg leading-relaxed ">
             <p>
               Founded in 1995, LuxeEstate has been at the forefront of luxury 
               real estate, connecting discerning clients with exceptional 

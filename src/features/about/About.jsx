@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 
 function About() {
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#f5f4f0" }}>
       <AboutHero />
       <OurStory />
       <Stats />

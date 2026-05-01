@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Mail, Phone, MapPin, Edit, X } from "lucide-react";
 import supabaseApi from "../../../config/supabaseApi";
+import { useNavigate } from "react-router-dom";
 
 function ProfileSidebar({ isEditing, setIsEditing, refreshKey }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 const userId = localStorage.getItem("userId"); 
+const navigate = useNavigate();
+
+const handleLogout = () => {
+
+  localStorage.removeItem("userId");
+  localStorage.removeItem("token"); 
+  sessionStorage.clear();
+
+
+  navigate("/login", { replace: true });
+};
 
 useEffect(() => {
   const fetchProfile = async () => {
@@ -38,7 +50,7 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow p-7 text-center font-serif">
+      <div className="bg-white rounded-xl shadow p-7 text-center ">
         <div className="animate-pulse flex flex-col items-center">
           <div className="w-20 h-20 bg-gray-200 rounded-full mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-24 mb-2"></div>
@@ -50,7 +62,7 @@ useEffect(() => {
 
   if (!profile) {
     return (
-      <div className="bg-white rounded-xl shadow p-7 text-center border-t-4 border-red-500 font-serif">
+      <div className="bg-white rounded-xl shadow p-7 text-center border-t-4 border-red-500 ">
         <p className="text-red-500 text-sm font-bold">No profile data found</p>
       </div>
     );
@@ -95,10 +107,18 @@ useEffect(() => {
           onClick={() => setIsEditing(true)}
           className="mt-6 w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-2 text-sm hover:bg-gray-50 transition-colors"
         >
+          
           <Edit size={14} />
           Edit Profile
         </button>
+      
       )}
+      <button
+  onClick={handleLogout}
+  className="mt-2 w-full flex items-center justify-center gap-2 border border-red-200 text-white bg-red-700 rounded-lg py-2 text-sm transition-colors"
+>
+  Logout
+</button>
     </div>
   );
 }

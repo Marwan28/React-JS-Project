@@ -44,7 +44,7 @@ const [savedCount, setSavedCount] = useState(0);
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
-      <h3 className="text-xl font-semibold mb-6 font-serif">Account Overview</h3>
+      <h3 className="text-xl font-semibold mb-6 ">Account Overview</h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       
