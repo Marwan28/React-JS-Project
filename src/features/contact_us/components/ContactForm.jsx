@@ -149,7 +149,7 @@ export default function ContactForm() {
             <option value="">Select a subject</option>
             <option value="buy">Buy a Property</option>
             <option value="sell">Sell a Property</option>
-            <option value="rent">Rent a Property</option>
+            <option value="rent">Scheduale a viewing</option>
             <option value="other">Other</option>
           </select>
           {errors.subject && <p style={errorStyle}>{errors.subject}</p>}
