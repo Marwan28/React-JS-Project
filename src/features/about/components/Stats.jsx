@@ -12,7 +12,7 @@ const statsData = [
 function Stats() {
   return (
     <section className="py-10 px-6 bg-gray-50">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 font-serif mb-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 s mb-8">
         {statsData.map((item) => (
           <div key={item.id} className="bg-white p-10 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
             <div className="bg-[#f0f4f8] p-4 rounded-full mb-6">{item.icon}</div>
