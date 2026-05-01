@@ -4,6 +4,7 @@ import OurStory from './components/OurStory';
 import Stats from './components/Stats';
 import OurMission from './components/OurMission';
 import OurValues from './components/OurValues';
+import Footer from '../../components/Footer';
 
 function About() {
   return (
@@ -13,7 +14,10 @@ function About() {
       <Stats />
       <OurMission />
       <OurValues />
+       <Footer/>
+     
     </div>
+    
   );
 }
 
