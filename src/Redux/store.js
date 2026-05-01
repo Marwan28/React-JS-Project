@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./Reducer/userReducer";
-import historyReducer from "./Reducer/historySlice"; // من main
-import favouriteReducer from "../features/favourite/favouriteSlice"; // بتاعك
+import historyReducer from "./Reducer/historySlice"; 
+import favouriteReducer from "../features/favourite/favouriteSlice"; 
+import authSlice from "./Reducer/authSlice";
+
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
+    auth: authSlice,
     history: historyReducer,
     favourite: favouriteReducer,
    },

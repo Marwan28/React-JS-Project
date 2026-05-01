@@ -9,18 +9,18 @@ function GuestHeader() {
     <Navbar />
     <div className="flex items-center gap-6">
       <Link
-        to="/sign_in"
+        to="/login"
         className="flex items-center gap-1 text-[#222] no-underline"
       >
         <Heart size={18} />
-        <span>SignIn</span>
+        <span>Sign In</span>
       </Link>
       <Link
-        to="/sign_up"
+        to="/signup"
         className="flex items-center gap-1 text-[#222] no-underline"
       >
         <User size={18} />
-        <span>SignUp</span>
+        <span>Sign Up</span>
       </Link>
       <Moon size={20} className="cursor-pointer" />
     </div>
