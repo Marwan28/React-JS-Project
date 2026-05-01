@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import FavouriteCard from "./FavouriteCard";
+import Footer from "../../components/Footer";
 
 export default function Favourite() {
   const favouriteItems = useSelector((state) => state.favourite.items);
@@ -35,8 +36,9 @@ export default function Favourite() {
               <FavouriteCard key={property.id} property={property} />
             ))}
           </div>
+          
         ) : (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
+          <div className="flex flex-col items-center justify-center py-30 text-center">
             <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-5">
               <svg className="w-9 h-9 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -52,6 +54,7 @@ export default function Favourite() {
         )}
 
       </div>
+      <Footer />
     </div>
   );
 }
