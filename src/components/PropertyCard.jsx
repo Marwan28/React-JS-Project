@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   FaRegHeart,
@@ -8,10 +8,12 @@ import {
   FaBath,
   FaRulerCombined,
 } from "react-icons/fa";
+import { addToFavourite, removeFromFavourite } from "../features/favourite/favouriteSlice";
 
 function PropertyCard({ property }) {
   const navigate = useNavigate();
-  const [isFav, setIsFav] = useState(false);
+  const dispatch = useDispatch();
+  const favouriteItems = useSelector((state) => state.favourite.items);
 
   const p = property || {
     id: 1,
@@ -26,6 +28,8 @@ function PropertyCard({ property }) {
     type: "Villa",
     featured: true,
   };
+
+  const isFav = favouriteItems.some((item) => item.id === p.id);
 
   return (
     <div
@@ -50,7 +54,11 @@ function PropertyCard({ property }) {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          setIsFav(!isFav);
+          if (isFav) {
+            dispatch(removeFromFavourite(p.id));
+          } else {
+            dispatch(addToFavourite(p));
+          }
         }}
         className="absolute top-4 right-4 z-10 text-2xl"
       >
