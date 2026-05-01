@@ -8,20 +8,28 @@ import Login from "./features/login/Login";
 import Profile from "./features/profile/Profile";
 import SignIn from "./features/signIn/SignIn";
 import PropertyDetails from "./features/property_details/PropertyDetails";
+import Header from "./components/header/Header";
+import GuestHeader from "./components/header/GuestHeader";
+
+
+const isAuthenticated = false; // Set to true if user is logged in
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<ContactUS />} />
-      <Route path="/favourite" element={<Favourite />} />
-      <Route path="/listing" element={<Listing />} />
-      <Route path="/listing/:id" element={<PropertyDetails />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/signin" element={<SignIn />} />
-    </Routes>
+    <>
+      {isAuthenticated ? <Header /> : <GuestHeader />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact_us" element={<ContactUS />} />
+        <Route path="/favourite" element={<Favourite />} />
+        <Route path="/listing" element={<Listing />} />
+        <Route path="/listing/:id" element={<PropertyDetails />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+    </>
   );
 }
 
