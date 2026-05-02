@@ -8,9 +8,12 @@ import {
   FaBath,
   FaRulerCombined,
 } from "react-icons/fa";
-import { addToFavourite, removeFromFavourite } from "../features/favourite/favouriteSlice";
+import {
+  addToFavourite,
+  removeFromFavourite,
+} from "../features/favourite/favouriteSlice";
 
-function PropertyCard({ property }) {
+function PropertyCard({ property, className = "" }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favouriteItems = useSelector((state) => state.favourite.items);
@@ -34,7 +37,7 @@ function PropertyCard({ property }) {
   return (
     <div
       onClick={() => navigate(`/listing/${p.id}`)}
-      className="w-full rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 relative cursor-pointer hover:shadow-2xl transition min-h-[540px] h-full"
+      className={`w-full max-w-full rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200 relative cursor-pointer hover:shadow-2xl transition ${className}`}
     >
       {/* Badges */}
       <div className="absolute top-4 left-4 flex gap-2 z-10">
@@ -70,7 +73,11 @@ function PropertyCard({ property }) {
       </button>
 
       {/* Image */}
-      <img className="w-full h-80 object-cover" src={p.image} alt={p.title} />
+      <img
+        className="w-full aspect-[4/3] object-cover"
+        src={p.image}
+        alt={p.title}
+      />
 
       <div className="p-6 pb-4">
         {/* Title */}
