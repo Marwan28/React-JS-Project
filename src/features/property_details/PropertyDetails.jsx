@@ -29,17 +29,17 @@ const PropertyDetails = () => {
           setProperty(mainProperty);
 
           if (mainProperty.id) {
-          
+
             dispatch(addToHistory({
               id: mainProperty.id,
               title: mainProperty.title,
               image: mainProperty.image,
               location: mainProperty.city || mainProperty.address,
-              price: mainProperty.price, 
-              bedrooms: mainProperty.bedrooms, 
-              bathrooms: mainProperty.bathrooms, 
+              price: mainProperty.price,
+              bedrooms: mainProperty.bedrooms,
+              bathrooms: mainProperty.bathrooms,
               area: mainProperty.area,
-              type: mainProperty.type, 
+              type: mainProperty.type,
               featured: mainProperty.featured
             }));
           }
@@ -94,7 +94,7 @@ const PropertyDetails = () => {
           </div>
         </div>
       </div>
-      <Footer />
+
     </div>
   );
 };
