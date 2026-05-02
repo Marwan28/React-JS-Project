@@ -8,7 +8,6 @@ import { addToHistory } from '../../Redux/Reducer/historySlice';
 import ImageGallery from './components/ImageGallery';
 import PropertyInfo from './components/PropertyInfo';
 import ContactCard from './components/ContactCard';
-import Footer from '../../components/Footer';
 
 const PropertyDetails = () => {
   const { id } = useParams();

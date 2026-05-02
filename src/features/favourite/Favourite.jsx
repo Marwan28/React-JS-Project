@@ -4,6 +4,8 @@ import Footer from "../../components/Footer";
 
 export default function Favourite() {
   const favouriteItems = useSelector((state) => state.favourite.items);
+  const loading = useSelector((state) => state.favourite.loading);
+  const error = useSelector((state) => state.favourite.error);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -23,13 +25,30 @@ export default function Favourite() {
         </div>
 
         <p className="text-gray-500 mb-8 ml-[52px]">
-          {favouriteItems.length > 0
+          {loading
+            ? "Loading your saved properties..."
+            : favouriteItems.length > 0
             ? `${favouriteItems.length} ${favouriteItems.length === 1 ? "property" : "properties"} saved to your favorites`
             : "No properties saved yet"}
         </p>
 
+        {error && (
+          <p className="mb-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
+            {error}
+          </p>
+        )}
+
         {/* Grid or Empty */}
-        {favouriteItems.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="h-80 animate-pulse rounded-2xl bg-gray-100 dark:bg-slate-800"
+              />
+            ))}
+          </div>
+        ) : favouriteItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {favouriteItems.map((property) => (
               <FavouriteCard key={property.id} property={property} />

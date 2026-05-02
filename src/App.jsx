@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import About from "./features/about/About";
 import ContactUS from "./features/contact_us/ContactUS";
 import Favourite from "./features/favourite/Favourite";
@@ -13,10 +14,24 @@ import GuestHeader from "./components/header/GuestHeader";
 import SignUp from "./features/signUp/SignUp";
 import Footer from "./components/Footer";
 import { useTheme } from "./theme/useTheme";
+import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
+import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
+  const authUserId = useSelector((state) => state.auth.user?.id);
   const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    dispatch(restoreAuthFromToken());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(loadFavouriteItems());
+    }
+  }, [authUserId, dispatch, isAuthenticated]);
 
   return (
     <>

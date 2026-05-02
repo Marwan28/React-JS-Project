@@ -18,6 +18,8 @@ function PropertyCard({ property, className = "" }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favouriteItems = useSelector((state) => state.favourite.items);
+  const pendingIds = useSelector((state) => state.favourite.pendingIds);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const p = property || {
     id: 1,
@@ -34,6 +36,26 @@ function PropertyCard({ property, className = "" }) {
   };
 
   const isFav = favouriteItems.some((item) => item.id === p.id);
+  const isFavouritePending = pendingIds.includes(p.id);
+
+  const handleToggleFavourite = async (e) => {
+    e.stopPropagation();
+
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      if (isFav) {
+        await dispatch(removeFromFavourite(p.id)).unwrap();
+      } else {
+        await dispatch(addToFavourite(p)).unwrap();
+      }
+    } catch (error) {
+      console.error("Favorite update failed:", error);
+    }
+  };
 
   return (
     <div
@@ -56,16 +78,11 @@ function PropertyCard({ property, className = "" }) {
 
       {/* Favorite Button */}
       <button
-        onClick={(e) => {
-          e.stopPropagation();
-          if (isFav) {
-            dispatch(removeFromFavourite(p.id));
-          } else {
-            dispatch(addToFavourite(p));
-          }
-        }}
+        onClick={handleToggleFavourite}
         type="button"
-        className="absolute top-4 right-4 z-10 text-2xl"
+        disabled={isFavouritePending}
+        className="absolute top-4 right-4 z-10 text-2xl disabled:cursor-not-allowed disabled:opacity-60"
+        aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
       >
         {isFav ? (
           <FaHeart className="text-red-500" />

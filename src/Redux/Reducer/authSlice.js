@@ -1,19 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { supabase } from "../../config/supabaseClient";
 
+const getStorageUser = (user) => ({
+  id: user.id,
+  email: user.email,
+  name: user.user_metadata?.full_name || user.user_metadata?.name || "",
+  avatar: user.user_metadata?.avatar_url || "",
+  phone: user.user_metadata?.phone || "",
+  location: user.user_metadata?.location || "",
+});
+
+const saveUserSession = (user, token) => {
+  sessionStorage.setItem("token", token);
+  sessionStorage.setItem("userId", user.id);
+  sessionStorage.setItem("user", JSON.stringify(getStorageUser(user)));
+};
+
 const saveToStorage = (user, token, rememberMe) => {
   const storage = rememberMe ? localStorage : sessionStorage;
   storage.setItem("token", token);
   storage.setItem("userId", user.id);
-  storage.setItem(
-    "user",
-    JSON.stringify({
-      id: user.id,
-      email: user.email,
-      name: user.user_metadata?.full_name || "",
-      avatar: user.user_metadata?.avatar_url || "",
-    }),
-  );
+  storage.setItem("user", JSON.stringify(getStorageUser(user)));
 };
 const getSavedToken = () =>
   localStorage.getItem("token") || sessionStorage.getItem("token") || null;
@@ -64,6 +71,28 @@ export const login = createAsyncThunk(
   },
 );
 
+export const restoreAuthFromToken = createAsyncThunk(
+  "auth/restoreAuthFromToken",
+  async (_, { rejectWithValue }) => {
+    const token = getSavedToken();
+
+    if (!token) {
+      return null;
+    }
+
+    const { data, error } = await supabase.auth.getUser(token);
+
+    if (error || !data.user) {
+      clearStorage();
+      return rejectWithValue(error?.message || "Invalid saved token");
+    }
+
+    saveUserSession(data.user, token);
+
+    return { user: data.user, token };
+  },
+);
+
 export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
@@ -93,12 +122,7 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.error = null;
         state.token = token;
-        state.user = {
-          id: user.id,
-          email: user.email,
-          name: user.user_metadata?.full_name || "",
-          avatar: user.user_metadata?.avatar_url || "",
-        };
+        state.user = getStorageUser(user);
         state.storageSource = rememberMe
           ? "localStorage 🟢 (Remember Me)"
           : "sessionStorage 🔵 (Session Only)";
@@ -114,6 +138,37 @@ const authSlice = createSlice({
         state.error = action.payload;
         console.log("error: " + state.error);
         console.log("error: " + action.payload);
+      })
+      .addCase(restoreAuthFromToken.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(restoreAuthFromToken.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+
+        if (!action.payload) {
+          state.isLoggedIn = false;
+          state.user = null;
+          state.token = null;
+          state.storageSource = "not stored ❌";
+          return;
+        }
+
+        const { user, token } = action.payload;
+
+        state.user = getStorageUser(user);
+        state.isLoggedIn = true;
+        state.token = token;
+        state.storageSource = "sessionStorage 🔵 (Session Restored)";
+      })
+      .addCase(restoreAuthFromToken.rejected, (state) => {
+        state.user = null;
+        state.isLoggedIn = false;
+        state.loading = false;
+        state.error = null;
+        state.token = null;
+        state.storageSource = "not stored ❌";
       })
       .addCase(logout.pending, (state) => {
         state.loading = true;

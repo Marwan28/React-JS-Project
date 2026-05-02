@@ -6,15 +6,25 @@ import { useSelector } from "react-redux";
 const AccountOverview = () => {
 const [savedCount, setSavedCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const authUser = useSelector((state) => state.auth.user);
 
   const viewedProperties = useSelector(
     (state) => state.history.viewedProperties
   );
 
-  const userId = "3c47a831-cea7-475e-9740-bde5d4ddef7b"; 
+  const userId =
+    authUser?.id ||
+    localStorage.getItem("userId") ||
+    sessionStorage.getItem("userId"); 
 
   useEffect(() => {
     const fetchSavedProperties = async () => {
+      if (!userId) {
+        setSavedCount(0);
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
        
@@ -33,9 +43,7 @@ const [savedCount, setSavedCount] = useState(0);
       }
     };
 
-    if (userId) {
-      fetchSavedProperties();
-    }
+    fetchSavedProperties();
   }, [userId]);
  
 
