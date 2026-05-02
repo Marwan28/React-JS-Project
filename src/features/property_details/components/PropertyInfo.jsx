@@ -1,7 +1,21 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToFavourite, removeFromFavourite } from '../../favourite/favouriteSlice';
 import { MapPin, Share2, Heart, Bed, Bath, Maximize } from 'lucide-react';
 
+
 const PropertyInfo = ({ property }) => {
+    const dispatch = useDispatch();
+
+    const favorites = useSelector((state) => state.favourite.items);
+    const isFavorite = favorites.find((item) => item.id === property.id);
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            dispatch(removeFromFavourite(property.id));
+        } else {
+            dispatch(addToFavourite(property));
+        }
+    }
     return (
         <div className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-10 border-b border-gray-50">
@@ -13,7 +27,7 @@ const PropertyInfo = ({ property }) => {
                         </div>
                         <div className="flex gap-3">
                             <button className="p-3 rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-all"><Share2 size={18} className="text-gray-600" /></button>
-                            <button className="p-3 rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-all"><Heart size={18} className="text-gray-600 hover:text-red-500" /></button>
+                            <button onClick={toggleFavorite} className="p-3 rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-all"><Heart size={18} className={` transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} /></button>
                         </div>
                     </div>
                     <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">{property.title}</h1>
