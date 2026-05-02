@@ -15,7 +15,7 @@ export default function ReadyToFindHome() {
       <div className="flex flex-col md:flex-row gap-4">
         <button
           onClick={() => navigate("/listing")}
-          className="bg-[#234052] hover:bg-[#183D4B] text-white font-semibold px-8 py-3 rounded transition-colors text-lg shadow-sm"
+          className="bg-[#1A2C3C] hover:bg-[#183D4B] text-white font-semibold px-8 py-3 rounded transition-colors text-lg shadow-sm"
         >
           Browse Listings
         </button>

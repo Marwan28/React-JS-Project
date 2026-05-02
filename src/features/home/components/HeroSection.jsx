@@ -27,7 +27,7 @@ export default function HeroSection() {
         </p>
         <button
           onClick={() => navigate("/listing")}
-          className="px-10 py-3 text-lg font-semibold rounded-lg border-none bg-[#183D4B] text-white cursor-pointer shadow-md hover:bg-[#14506b] transition-colors"
+          className="px-10 py-3 text-lg font-semibold rounded-lg border-none bg-[#1A2C3C] text-white cursor-pointer shadow-md hover:bg-[#14506b] transition-colors"
         >
           Explore
         </button>
