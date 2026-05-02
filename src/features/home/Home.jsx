@@ -1,4 +1,4 @@
-import Footer from "../../components/Footer";
+
 import HeroSection from "./components/HeroSection";
 import HomeFeaturesList from "./components/HomeFeaturesList";
 import ReadyToFindHome from "./components/ReadyToFindHome";
@@ -11,7 +11,6 @@ export default function Home() {
       <HomeFeaturesList />
       <FeaturedPropertyList />
       <ReadyToFindHome />
-      <Footer />
     </>
   );
 }

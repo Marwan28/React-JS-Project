@@ -19,7 +19,7 @@ function Navbar() {
             to={item.href}
             className={`rounded-full px-3 py-2 transition no-underline decoration-none
               ${isActive
-                ? "bg-[#23404a] text-white font-bold shadow-sm"
+                ? "bg-[#1A2C3C] text-white font-bold shadow-sm"
                 : "text-gray-700 hover:bg-[#e6f0f3] hover:text-[#23404a]"}
             `}
           >
