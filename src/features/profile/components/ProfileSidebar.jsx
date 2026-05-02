@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Phone, MapPin, Edit, X } from "lucide-react";
 import supabaseApi from "../../../config/supabaseApi";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,8 @@ import { logout } from "../../../Redux/Reducer/authSlice";
 function ProfileSidebar({ isEditing, setIsEditing, refreshKey }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const userId = localStorage.getItem("userId");
+  const userId =
+    localStorage.getItem("userId") || sessionStorage.getItem("userId");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

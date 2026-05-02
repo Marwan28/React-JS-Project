@@ -4,6 +4,7 @@ import { supabase } from "../../config/supabaseClient";
 const saveToStorage = (user, token, rememberMe) => {
   const storage = rememberMe ? localStorage : sessionStorage;
   storage.setItem("token", token);
+  storage.setItem("userId", user.id);
   storage.setItem(
     "user",
     JSON.stringify({
@@ -28,8 +29,10 @@ const getSavedUser = () => {
 
 const clearStorage = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   localStorage.removeItem("user");
   sessionStorage.removeItem("token");
+  sessionStorage.removeItem("userId");
   sessionStorage.removeItem("user");
 };
 
