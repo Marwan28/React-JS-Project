@@ -1,9 +1,8 @@
-import React from 'react';
 import { MapPin, Share2, Heart, Bed, Bath, Maximize } from 'lucide-react';
 
 const PropertyInfo = ({ property }) => {
     return (
-        <div className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden dark:bg-slate-900 dark:border-slate-800">
             <div className="p-10 border-b border-gray-50">
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">

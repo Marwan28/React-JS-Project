@@ -1,8 +1,6 @@
-import React from 'react';
-
 function AboutHero() {
   return (
-    <section className="bg-[#1a2d3d] py-20 px-6 text-center">
+    <section className="bg-[#1a2d3d] py-20 px-6 text-center dark:bg-slate-900">
       <h1 className='text-white text-4xl md:text-5xl font-bold  mb-8'>
         About LuxeEstate
       </h1>

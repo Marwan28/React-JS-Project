@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) => {
     return (
         <div className="space-y-4">
@@ -19,7 +17,7 @@ const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) =>
                     <div
                         key={index}
                         onClick={() => setActiveImage(index)}
-                        className={`relative min-w-\[140px\] h-24 rounded-2xl overflow-hidden cursor-pointer border-4 transition-all duration-300 
+                        className={`relative min-w-[140px] h-24 rounded-2xl overflow-hidden cursor-pointer border-4 transition-all duration-300 
               ${activeImage === index ? 'border-blue-600 scale-95 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'}`}
                     >
                         <img src={img.image_url} className="w-full h-full object-cover" alt={`Thumb ${index}`} />

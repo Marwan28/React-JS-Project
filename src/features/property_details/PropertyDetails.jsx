@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import supabaseApi from '../../config/supabaseApi';
 import { useDispatch } from 'react-redux';
@@ -71,7 +71,7 @@ const PropertyDetails = () => {
   if (!property) return <div className="text-center py-20 text-2xl font-bold">Property not found!</div>;
 
   return (
-    <div className="bg-[#f8f9fa] min-h-screen font-sans">
+    <div className="bg-[#f8f9fa] min-h-screen font-sans transition-colors dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
           <Link to="/listings" className="flex items-center gap-1 text-gray-500 hover:text-black font-medium transition-all">

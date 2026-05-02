@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import PropertyCard from "../../../components/PropertyCard";
 
@@ -8,8 +7,8 @@ const RecentlyViewed = () => {
   );
 
   return (
-    <div className="bg-white rounded-xl shadow p-4 ">
-      <h3 className="text-base font-semibold mb-3">Recently Viewed</h3>
+    <div className="bg-white rounded-xl shadow p-4 dark:bg-slate-900">
+      <h3 className="text-base font-semibold mb-3 text-slate-900 dark:text-white">Recently Viewed</h3>
 
       {viewedProperties.length === 0 ? (
         <p className="text-sm text-gray-500">
