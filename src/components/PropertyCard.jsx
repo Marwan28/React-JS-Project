@@ -12,6 +12,7 @@ import {
   addToFavourite,
   removeFromFavourite,
 } from "../features/favourite/favouriteSlice";
+import CardImage from "./CardImage";
 
 function PropertyCard({ property, className = "" }) {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ function PropertyCard({ property, className = "" }) {
             dispatch(addToFavourite(p));
           }
         }}
+        type="button"
         className="absolute top-4 right-4 z-10 text-2xl"
       >
         {isFav ? (
@@ -73,11 +75,7 @@ function PropertyCard({ property, className = "" }) {
       </button>
 
       {/* Image */}
-      <img
-        className="w-full aspect-[4/3] object-cover"
-        src={p.image}
-        alt={p.title}
-      />
+      <CardImage key={p.image} src={p.image} alt={p.title} />
 
       <div className="p-6 pb-4">
         {/* Title */}
