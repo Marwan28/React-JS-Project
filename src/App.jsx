@@ -11,6 +11,7 @@ import Header from "./components/header/Header";
 import Home from "./features/home/Home";
 import GuestHeader from "./components/header/GuestHeader";
 import SignUp from "./features/signUp/SignUp";
+import Footer from "./components/Footer";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <Footer/>
     </>
   );
 }

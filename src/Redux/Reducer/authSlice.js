@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { supabase } from "../../config/supabaseClient";
 
-import { useNavigate } from "react-router-dom";
-
 const saveToStorage = (user, token, rememberMe) => {
   const storage = rememberMe ? localStorage : sessionStorage;
   storage.setItem("token", token);
@@ -63,23 +61,23 @@ export const login = createAsyncThunk(
   },
 );
 
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      return rejectWithValue(error.message);
+    }
+
+    clearStorage();
+  },
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.isLoggedIn = false;
-      state.loading = false;
-      state.error = null;
-      state.token = null;
-      state.storageSource = "not stored ❌";
-      clearStorage();
-      supabase.auth.signOut();
-      console.log("user " + state.user);
-      console.log("token " + state.token);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -113,10 +111,24 @@ const authSlice = createSlice({
         state.error = action.payload;
         console.log("error: " + state.error);
         console.log("error: " + action.payload);
+      })
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.isLoggedIn = false;
+        state.loading = false;
+        state.error = null;
+        state.token = null;
+        state.storageSource = "not stored ❌";
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
-
-export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;
