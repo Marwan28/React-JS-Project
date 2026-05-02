@@ -32,6 +32,13 @@ function EditProfileForm({ onSave }) {
       </h3>
 
       <div className="space-y-3.5">
+        {errors.form && (
+          <div className="flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+            <AlertCircle size={14} />
+            <span>{errors.form}</span>
+          </div>
+        )}
+
         {fields.map(({ name, label, type }) => (
           <div key={name}>
             <label className="block text-sm text-gray-500 dark:text-slate-400 mb-1">{label}</label>
