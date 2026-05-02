@@ -93,26 +93,74 @@ const supabaseApi = {
     }
   },
 
-  // GET with filters
-  getWithFilter: async (table, filters = {}) => {
-    try {
-      let query = "";
+ // GET with filters
+getWithFilter: async (table, filters = {}) => {
+  try {
+    let url = `${SUPABASE_URL}/rest/v1/${table}?`;
 
-      Object.entries(filters).forEach(([key, value], index) => {
-        query += `${index === 0 ? "?" : "&"}${key}=eq.${value}`;
-      });
+    const params = [];
 
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}${query}`, {
-        method: "GET",
-        headers: getHeaders(),
-      });
+    Object.entries(filters).forEach(([key, value]) => {
 
-      return await res.json();
-    } catch (error) {
-      console.error("FILTER GET error:", error);
-      return null;
-    }
-  },
+      // skip empty values
+      if (
+        value === "" ||
+        value === null ||
+        value === undefined
+      ) {
+        return;
+      }
+
+      // search
+      if (key === "search") {
+        const searchValue = encodeURIComponent(String(value));
+
+        params.push(`title=ilike.*${searchValue}*`);
+
+        return;
+      }
+
+      // gte
+      if (key.endsWith("_gte")) {
+        const column = key.replace("_gte", "");
+
+        params.push(`${column}=gte.${value}`);
+      }
+
+      // lte
+      else if (key.endsWith("_lte")) {
+        const column = key.replace("_lte", "");
+
+        params.push(`${column}=lte.${value}`);
+      }
+
+      // ilike
+      else if (key.endsWith("_ilike")) {
+        const column = key.replace("_ilike", "");
+
+        params.push(`${column}=ilike.*${value}*`);
+      }
+
+      // eq
+      else {
+        params.push(`${key}=eq.${value}`);
+      }
+    });
+
+    url += params.join("&");
+
+    const res = await fetch(url, {
+      method: "GET",
+      headers: getHeaders(),
+    });
+
+    return await res.json();
+
+  } catch (error) {
+    console.error("FILTER error:", error);
+    return [];
+  }
+},
 };
 
 export default supabaseApi;
