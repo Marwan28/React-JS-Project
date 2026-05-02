@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import FavouriteCard from "./FavouriteCard";
-import Footer from "../../components/Footer";
 
 export default function Favourite() {
   const favouriteItems = useSelector((state) => state.favourite.items);
@@ -24,7 +23,7 @@ export default function Favourite() {
           <h1 className="text-3xl font-bold text-gray-900">Favorite Properties</h1>
         </div>
 
-        <p className="text-gray-500 mb-8 ml-[52px]">
+        <p className="text-gray-500 mb-8 ml-13">
           {loading
             ? "Loading your saved properties..."
             : favouriteItems.length > 0
@@ -72,7 +71,6 @@ export default function Favourite() {
         )}
 
       </div>
-      <Footer />
     </div>
   );
 }
