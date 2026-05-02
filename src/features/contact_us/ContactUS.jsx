@@ -6,9 +6,9 @@ import Footer from "../../components/Footer";
 
 export default function ContactUS() {
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#f5f4f0" }}>
+    <div className="bg-[#f5f4f0] font-sans transition-colors dark:bg-slate-950">
       <ContactHero />
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 20px", display: "flex", gap: "60px", flexWrap: "wrap" }}>
+      <div className="mx-auto flex max-w-7xl flex-wrap gap-[60px] px-5 py-[60px]">
         <ContactInfo />
         <ContactForm />
       </div>

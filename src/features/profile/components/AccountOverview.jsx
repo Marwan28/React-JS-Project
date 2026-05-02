@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import supabaseApi from "../../../config/supabaseApi";
 import OverviewCard from "./OverviewCard";
 import { useSelector } from "react-redux";
@@ -43,8 +43,8 @@ const [savedCount, setSavedCount] = useState(0);
 
 
   return (
-    <div className="bg-white rounded-xl shadow p-6">
-      <h3 className="text-xl font-semibold mb-6 ">Account Overview</h3>
+    <div className="bg-white rounded-xl shadow p-6 dark:bg-slate-900">
+      <h3 className="text-xl font-semibold mb-6 text-slate-900 dark:text-white">Account Overview</h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       

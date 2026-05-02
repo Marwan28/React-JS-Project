@@ -19,8 +19,8 @@ function Navbar() {
             to={item.href}
             className={`rounded-full px-3 py-2 transition no-underline decoration-none
               ${isActive
-                ? "bg-[#1A2C3C] text-white font-bold shadow-sm"
-                : "text-gray-700 hover:bg-[#e6f0f3] hover:text-[#23404a]"}
+                ? "bg-[#1A2C3C] text-white font-bold shadow-sm dark:bg-slate-100 dark:text-slate-950"
+                : "text-gray-700 hover:bg-[#e6f0f3] hover:text-[#23404a] dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"}
             `}
           >
             {item.name}

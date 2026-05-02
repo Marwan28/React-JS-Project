@@ -1,4 +1,3 @@
-import React from 'react';
 import AboutHero from './components/AboutHero';
 import OurStory from './components/OurStory';
 import Stats from './components/Stats';
@@ -8,7 +7,7 @@ import Footer from '../../components/Footer';
 
 function About() {
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#f5f4f0" }}>
+    <div className="bg-[#f5f4f0] font-sans transition-colors dark:bg-slate-950">
       <AboutHero />
       <OurStory />
       <Stats />

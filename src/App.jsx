@@ -12,13 +12,19 @@ import Home from "./features/home/Home";
 import GuestHeader from "./components/header/GuestHeader";
 import SignUp from "./features/signUp/SignUp";
 import Footer from "./components/Footer";
+import { useTheme } from "./theme/useTheme";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
-      {isAuthenticated ? <Header /> : <GuestHeader />}
+      {isAuthenticated ? (
+        <Header theme={theme} onToggleTheme={toggleTheme} />
+      ) : (
+        <GuestHeader theme={theme} onToggleTheme={toggleTheme} />
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function MapPlaceholder() {
   const latitude = 30.0444;
   const longitude = 31.2357;

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProfileSidebar from "../profile/components/ProfileSidebar";
 import AccountOverview from "../profile/components/AccountOverview";
 import RecentlyViewed from "../profile/components/RecentlyViewed";
 import EditProfileForm from "../profile/editProfile/EditProfileForm";
-import Footer from "../../components/Footer";
 function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -14,7 +13,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4" style={{ fontFamily: "'Inter', sans-serif", backgroundColor: "#f5f4f0" }}> 
+    <div className="min-h-screen bg-[#f5f4f0] p-4 font-sans transition-colors dark:bg-slate-950"> 
      
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-20"> 
 
@@ -36,7 +35,6 @@ function ProfilePage() {
         </div>
       </div>
 
-      <Footer /> 
     </div>
   );
 }

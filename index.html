@@ -7,6 +7,18 @@
     <title>project</title>
   </head>
   <body>
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem("theme") || "light";
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          document.documentElement.style.colorScheme = theme;
+        } catch {
+          document.documentElement.classList.remove("dark");
+          document.documentElement.style.colorScheme = "light";
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
