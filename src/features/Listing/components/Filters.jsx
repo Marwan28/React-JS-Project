@@ -31,29 +31,22 @@ export default function Filters({ onApply }) {
   function handleChange(e) {
     const { name, value } = e.target;
 
-    setFilters((prev) => ({
-      ...prev,
+    const updatedFilters = {
+      ...filters,
       [name]: name === "bedrooms" ? (value === "" ? "" : Number(value)) : value,
-    }));
+    };
+
+    setFilters(updatedFilters);
+    onApply?.(updatedFilters);
   }
 
   function handleClear() {
     setFilters(initialFilters);
-
     onApply?.(initialFilters);
   }
 
-  function handleApply(e) {
-    e.preventDefault();
-
-    onApply?.(filters);
-  }
-
   return (
-    <form
-      onSubmit={handleApply}
-      className="bg-white rounded-lg p-6 shadow-sm border"
-    >
+    <div className="bg-white rounded-lg p-6 shadow-sm border">
       <div className="flex items-start justify-between">
         <h3 className="text-lg font-semibold">Filters</h3>
 
@@ -121,14 +114,7 @@ export default function Filters({ onApply }) {
             className="mt-3 w-full rounded-md border px-4 py-2 text-sm"
           />
         </div>
-
-        <button
-          type="submit"
-          className="w-full bg-[#183a46] text-white py-2 rounded-md"
-        >
-          Apply Filters
-        </button>
       </div>
-    </form>
+    </div>
   );
 }
