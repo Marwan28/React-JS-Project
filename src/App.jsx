@@ -13,6 +13,8 @@ import Home from "./features/home/Home";
 import GuestHeader from "./components/header/GuestHeader";
 import SignUp from "./features/signUp/SignUp";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 import { useTheme } from "./theme/useTheme";
 import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
@@ -44,14 +46,42 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact_us" element={<ContactUS />} />
-        <Route path="/favourite" element={<Favourite />} />
         <Route path="/listing" element={<Listing />} />
         <Route path="/listing/:id" element={<PropertyDetails />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/favourite"
+          element={
+            <ProtectedRoute>
+              <Favourite />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 }
