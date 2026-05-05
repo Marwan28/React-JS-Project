@@ -7,6 +7,8 @@ const propertyTypes = [
   { label: "House", value: "House" },
   { label: "Apartment", value: "Apartment" },
   { label: "Penthouse", value: "Penthouse" },
+  { label: "Chalet", value: "Chalet" },
+  { label: "Studio", value: "Studio" },
 ];
 
 const bedroomsOptions = [
