@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import About from "./features/about/About";
@@ -18,12 +18,15 @@ import PublicRoute from "./components/PublicRoute";
 import { useTheme } from "./theme/useTheme";
 import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
+import AddProperty from "./features/admin/AddProperty";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
   const authUserId = useSelector((state) => state.auth.user?.id);
   const { theme, toggleTheme } = useTheme();
+  const isAdminPage = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     dispatch(restoreAuthFromToken());
@@ -37,11 +40,15 @@ function App() {
 
   return (
     <>
-      {isAuthenticated ? (
-        <Header theme={theme} onToggleTheme={toggleTheme} />
-      ) : (
-        <GuestHeader theme={theme} onToggleTheme={toggleTheme} />
+
+      {!isAdminPage && (
+        isAuthenticated ? (
+          <Header theme={theme} onToggleTheme={toggleTheme} />
+        ) : (
+          <GuestHeader theme={theme} onToggleTheme={toggleTheme} />
+        )
       )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -80,8 +87,11 @@ function App() {
             </PublicRoute>
           }
         />
+
+        <Route path="/admin/add-property" element={<AddProperty />} />
       </Routes>
-      <Footer />
+      {!isAdminPage && <Footer />}
+
     </>
   );
 }
