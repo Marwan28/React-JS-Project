@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AdminSidebar from "./features/admin/components/AdminSidebar";
 import About from "./features/about/About";
 import ContactUS from "./features/contact_us/ContactUS";
 import Favourite from "./features/favourite/Favourite";
@@ -19,6 +20,7 @@ import { useTheme } from "./theme/useTheme";
 import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
 import AddProperty from "./features/admin/AddProperty";
+import Dashboard from "./features/admin/Dashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +42,7 @@ function App() {
 
   return (
     <>
+      {isAdminPage && <AdminSidebar />}
 
       {!isAdminPage && (
         isAuthenticated ? (
@@ -87,8 +90,15 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/properties" element={<properties />} />
+
 
         <Route path="/admin/add-property" element={<AddProperty />} />
+
+        <Route path="/admin" element={<Dashboard />} />
+
+
       </Routes>
       {!isAdminPage && <Footer />}
 

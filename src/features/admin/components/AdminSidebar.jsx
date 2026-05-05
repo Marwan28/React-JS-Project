@@ -9,16 +9,17 @@ const AdminSidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const location = useLocation();
 
+    // 1. التعديل هنا: خليت الـ Properties تروح لـ /admin/properties
     const menuItems = [
         { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/admin/dashboard' },
-        { icon: <Building2 size={22} />, label: 'Properties', path: '/admin/add-property' },
+        { icon: <Building2 size={22} />, label: 'Properties', path: '/admin/properties' }, // ده المسار اللي زميلك شغال عليه
         { icon: <Users size={22} />, label: 'Users', path: '/admin/users' },
         { icon: <Settings size={22} />, label: 'Settings', path: '/admin/settings' },
     ];
 
     return (
         <aside
-            className={`bg-white h-screen  fixed top-0 flex flex-col border-r border-gray-100 shadow-sm transition-all duration-300 ease-in-out
+            className={`bg-white h-screen fixed top-0 flex flex-col border-r border-gray-100 shadow-sm transition-all duration-300 ease-in-out
         ${isCollapsed ? 'w-20' : 'w-64'}`}
         >
             <div className={`p-4 mb-2 flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
@@ -26,7 +27,7 @@ const AdminSidebar = () => {
                     L
                 </div>
                 {!isCollapsed && (
-                    <span className="text-xl font-bold text-[#1e293b] tracking-tight animate-fade-in">
+                    <span className="text-xl font-bold text-[#1e293b] tracking-tight">
                         LuxeEstate
                     </span>
                 )}
@@ -34,20 +35,23 @@ const AdminSidebar = () => {
 
             <nav className="flex-1 px-3 space-y-1">
                 {menuItems.map((item) => {
-                    const isActive = location.pathname === item.path;
+                    // 2. بنشوف لو إحنا في الصفحة الحالية أو صفحة فرعية منها (زي الـ add-property)
+                    const isActive = location.pathname === item.path ||
+                        (item.path === '/admin/properties' && location.pathname === '/admin/add-property');
+
                     return (
                         <Link
                             key={item.label}
                             to={item.path}
                             title={isCollapsed ? item.label : ""}
-                            className={`flex items-center rounded-xl font-medium transition-all duration-200 group
+                            className={`flex items-center rounded-xl transition-all duration-200 group
                 ${isCollapsed ? 'justify-center p-3' : 'gap-4 px-4 py-3'}
                 ${isActive
-                                    ? 'bg-[#1e293b] text-white shadow-lg shadow-slate-200'
-                                    : 'text-gray-400 hover:bg-gray-50 hover:text-gray-600'
+                                    ? 'text-black bg-gray-100 font-black' // 3. التعديل هنا: لون أسود وخلفية رمادي فاتح لما تضغطي
+                                    : 'text-gray-400 font-medium hover:bg-gray-50 hover:text-gray-600'
                                 }`}
                         >
-                            <span className={`${isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-600'}`}>
+                            <span className={`text-[15px] ${isActive ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'}`}>
                                 {item.icon}
                             </span>
                             {!isCollapsed && <span className="text-[15px] whitespace-nowrap">{item.label}</span>}
@@ -56,9 +60,7 @@ const AdminSidebar = () => {
                 })}
             </nav>
 
-
             <div className="p-3 border-t border-gray-50 space-y-1">
-
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
                     className={`w-full flex items-center text-gray-400 hover:bg-gray-50 hover:text-gray-600 rounded-xl transition-all
