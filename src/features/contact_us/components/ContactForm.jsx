@@ -49,6 +49,7 @@ export default function ContactForm() {
 
   const inputClass =
     "w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-gray-400 focus:border-[#1a2d3d] focus:ring-4 focus:ring-[#1a2d3d]/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-cyan-300 dark:focus:ring-cyan-300/10";
+
   const labelClass =
     "mb-2 block text-sm font-medium text-[#1a1a1a] dark:text-slate-200";
 
