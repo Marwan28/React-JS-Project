@@ -48,10 +48,7 @@ export default function ContactInfo() {
               {item.title}
             </p>
             {item.lines.map((line) => (
-              <p
-                key={line}
-                className="my-0.5 text-sm text-gray-500 dark:text-slate-400"
-              >
+              <p key={line} className="my-0.5 text-sm text-gray-500 dark:text-slate-400">
                 {line}
               </p>
             ))}

@@ -1,5 +1,5 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminSidebar from "./features/admin/components/AdminSidebar";
 import About from "./features/about/About";
@@ -21,6 +21,8 @@ import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
 import AddProperty from "./features/admin/AddProperty";
 import Dashboard from "./features/admin/Dashboard";
+import NotFound from "./features/not_found/NotFound";
+import Offline from "./features/offline/Offline";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +30,12 @@ function App() {
   const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
   const authUserId = useSelector((state) => state.auth.user?.id);
   const { theme, toggleTheme } = useTheme();
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const isAdminPage = location.pathname.startsWith("/admin");
+  const isSpecialPage = location.pathname === "/offline" ||
+    ![ "/", "/about", "/contact_us", "/listing", "/favourite", "/profile", "/login", "/signup" ]
+      .some((p) => location.pathname === p || location.pathname.startsWith("/listing/"));
+
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     dispatch(restoreAuthFromToken());
@@ -40,11 +47,26 @@ function App() {
     }
   }, [authUserId, dispatch, isAuthenticated]);
 
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  if (!isOnline && location.pathname !== "/offline") {
+    return <Navigate to="/offline" replace />;
+  }
+
   return (
     <>
       {isAdminPage && <AdminSidebar />}
 
-      {!isAdminPage && (
+      {!isAdminPage && !isSpecialPage && (
         isAuthenticated ? (
           <Header theme={theme} onToggleTheme={toggleTheme} />
         ) : (
@@ -90,18 +112,15 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/properties" element={<properties />} />
-
-
         <Route path="/admin/add-property" element={<AddProperty />} />
 
-        <Route path="/admin" element={<Dashboard />} />
-
-
+        <Route path="/offline" element={<Offline />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      {!isAdminPage && <Footer />}
 
+      {!isAdminPage && !isSpecialPage && <Footer />}
     </>
   );
 }
