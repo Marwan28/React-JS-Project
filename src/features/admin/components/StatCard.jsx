@@ -1,12 +1,10 @@
-import React from 'react';
-
 const StatCard = ({ title, value, change, color }) => (
-    <div className={`${color} p-10 rounded-[2.5rem] border border-white shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 cursor-default}`}>
-        <p className="text-[12px] font-black text-gray-400 uppercase tracking-[0.2em]">{title}</p>
-        <h3 className="text-4xl font-black text-slate-800 my-3">{value}</h3>
+    <div className={`${color} relative overflow-hidden p-6 rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md cursor-default dark:border-slate-800`}>
+        <p className="text-sm font-medium text-gray-500 dark:text-slate-400">{title}</p>
+        <h3 className="text-3xl font-bold text-slate-950 my-2 dark:text-white">{value}</h3>
         <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-green-600 bg-white/50 px-2 py-0.5 rounded-lg">{change}</span>
-            <span className="text-gray-400 font-medium text-[11px]">vs last month</span>
+            <span className="text-sm font-medium text-green-700 bg-green-50 px-2 py-0.5 rounded-lg dark:bg-green-950/30 dark:text-green-400">{change}</span>
+            <span className="text-gray-400 font-medium text-[11px] dark:text-slate-500">vs last month</span>
         </div>
     </div>
 );

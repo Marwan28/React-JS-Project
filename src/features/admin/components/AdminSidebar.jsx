@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     LayoutGrid, Building2, Users, Settings,
     ChevronLeft, ChevronRight
@@ -19,15 +19,15 @@ const AdminSidebar = () => {
 
     return (
         <aside
-            className={`bg-white h-screen fixed top-0 flex flex-col border-r border-gray-100 shadow-sm transition-all duration-300 ease-in-out
+            className={`bg-[#fcfcfb] h-screen fixed top-0 flex flex-col border-r border-[#eee] shadow-sm transition-all duration-300 ease-in-out z-50 dark:bg-slate-950 dark:border-slate-800
         ${isCollapsed ? 'w-20' : 'w-64'}`}
         >
             <div className={`p-4 mb-2 flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'}`}>
-                <div className="w-9 h-9 bg-[#1e293b] rounded-lg shrink-0 flex items-center justify-center text-white font-bold text-xl">
+                <div className="w-9 h-9 bg-[#1A2C3C] rounded-lg shrink-0 flex items-center justify-center text-white font-bold text-xl shadow-sm dark:bg-[#243b53] dark:text-white">
                     L
                 </div>
                 {!isCollapsed && (
-                    <span className="text-xl font-bold text-[#1e293b] tracking-tight">
+                    <span className="text-xl font-bold text-[#1A2C3C] tracking-tight dark:text-white">
                         LuxeEstate
                     </span>
                 )}
@@ -47,11 +47,11 @@ const AdminSidebar = () => {
                             className={`flex items-center rounded-xl transition-all duration-200 group
                 ${isCollapsed ? 'justify-center p-3' : 'gap-4 px-4 py-3'}
                 ${isActive
-                                    ? 'text-black bg-gray-100 font-black' // 3. التعديل هنا: لون أسود وخلفية رمادي فاتح لما تضغطي
-                                    : 'text-gray-400 font-medium hover:bg-gray-50 hover:text-gray-600'
+                                    ? 'text-[#1A2C3C] bg-[#e6f0f3] font-semibold shadow-sm dark:text-white dark:bg-slate-900'
+                                    : 'text-gray-500 font-medium hover:bg-[#e6f0f3] hover:text-[#23404a] dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100'
                                 }`}
                         >
-                            <span className={`text-[15px] ${isActive ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'}`}>
+                            <span className={`text-[15px] ${isActive ? 'text-[#1A2C3C] dark:text-white' : 'text-gray-400 group-hover:text-[#23404a] dark:text-slate-500 dark:group-hover:text-slate-100'}`}>
                                 {item.icon}
                             </span>
                             {!isCollapsed && <span className="text-[15px] whitespace-nowrap">{item.label}</span>}
@@ -60,10 +60,10 @@ const AdminSidebar = () => {
                 })}
             </nav>
 
-            <div className="p-3 border-t border-gray-50 space-y-1">
+            <div className="p-3 border-t border-[#eee] space-y-1 dark:border-slate-800">
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className={`w-full flex items-center text-gray-400 hover:bg-gray-50 hover:text-gray-600 rounded-xl transition-all
+                    className={`w-full flex items-center text-gray-500 hover:bg-[#e6f0f3] hover:text-[#23404a] rounded-xl transition-all dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-slate-100
             ${isCollapsed ? 'justify-center p-3' : 'gap-4 px-4 py-3'}`}
                 >
                     {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}

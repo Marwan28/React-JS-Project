@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -74,16 +74,16 @@ const PropertyForm = () => {
     });
 
     const inputClass = (name) => `
-        w-full p-4 bg-gray-50 border rounded-2xl outline-none transition-all duration-200
+        w-full px-4 py-2.5 bg-gray-50 border rounded-lg outline-none transition-all duration-200 text-slate-950 placeholder:text-gray-400 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500
         ${formik.touched[name] && formik.errors[name]
-            ? 'border-red-300 bg-red-50 focus:ring-red-100'
-            : 'border-transparent focus:bg-white focus:ring-2 focus:ring-blue-100 focus:border-blue-200'}
+            ? 'border-red-300 bg-red-50 focus:ring-red-100 dark:border-red-500 dark:bg-red-950/30 dark:focus:ring-red-500/20'
+            : 'border-gray-200 focus:bg-white focus:ring-2 focus:ring-[#243b53]/20 focus:border-[#243b53] dark:border-slate-700 dark:focus:bg-slate-900 dark:focus:ring-[#344d60]/30 dark:focus:border-[#344d60]'}
     `;
 
     return (
         <div className="max-w-4xl mx-auto">
             {status.message && (
-                <div className={`mb-6 p-4 rounded-2xl flex items-center gap-3 ${status.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${status.type === 'success' ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300' : 'bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300'}`}>
                     {status.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
                     <span className="font-bold">{status.message}</span>
                 </div>
@@ -92,29 +92,29 @@ const PropertyForm = () => {
             <form onSubmit={formik.handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Title</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Title</label>
                         <input name="title" {...formik.getFieldProps('title')} className={inputClass('title')} placeholder="Property Title" />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Price ($)</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Price ($)</label>
                         <input name="price" type="number" {...formik.getFieldProps('price')} className={inputClass('price')} placeholder="850,000" />
                     </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">City</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">City</label>
                         <input name="city" {...formik.getFieldProps('city')} className={inputClass('city')} placeholder="e.g. Cairo" />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Address</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Address</label>
                         <input name="location" {...formik.getFieldProps('location')} className={inputClass('location')} placeholder="Street, District" />
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Type</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Type</label>
                         <select name="type" {...formik.getFieldProps('type')} className={inputClass('type')}>
                             <option value="Villa">Villa</option>
                             <option value="Apartment">Apartment</option>
@@ -122,43 +122,43 @@ const PropertyForm = () => {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Bedrooms</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Bedrooms</label>
                         <input name="bedrooms" type="number" {...formik.getFieldProps('bedrooms')} className={inputClass('bedrooms')} />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Bathrooms</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Bathrooms</label>
                         <input name="bathrooms" type="number" {...formik.getFieldProps('bathrooms')} className={inputClass('bathrooms')} />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Area (sqft)</label>
+                        <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Area (sqft)</label>
                         <input name="size" type="number" {...formik.getFieldProps('size')} className={inputClass('size')} />
                     </div>
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Main Image URL</label>
+                    <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Main Image URL</label>
                     <input name="main_image" {...formik.getFieldProps('main_image')} className={inputClass('main_image')} placeholder="https://..." />
                 </div>
                 <div className="space-y-2">
-                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Gallery (URLs separated by commas)</label>
+                    <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Gallery (URLs separated by commas)</label>
                     <textarea name="extra_images" {...formik.getFieldProps('extra_images')} className={`${inputClass('extra_images')} h-24`} placeholder="url1, url2, url3" />
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Description</label>
+                    <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Description</label>
                     <textarea name="description" {...formik.getFieldProps('description')} className={`${inputClass('description')} h-32`} />
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <input type="checkbox" id="is_featured" name="is_featured" checked={formik.values.is_featured} onChange={formik.handleChange} className="w-5 h-5 rounded black" />
-                    <label htmlFor="is_featured" className="font-bold text-gray-600">Featured Property</label>
+                    <input type="checkbox" id="is_featured" name="is_featured" checked={formik.values.is_featured} onChange={formik.handleChange} className="w-5 h-5 rounded border-gray-300 text-[#1A2C3C] focus:ring-2 focus:ring-[#243b53]/20 dark:border-slate-700 dark:bg-slate-950 dark:text-[#344d60] dark:focus:ring-[#344d60]/30" />
+                    <label htmlFor="is_featured" className="font-medium text-gray-700 dark:text-slate-300">Featured Property</label>
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                    <button type="submit" disabled={loading} className="flex-1 bg-[#1e293b] text-white py-4 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-black transition-all disabled:opacity-50">
+                    <button type="submit" disabled={loading} className="flex-1 bg-[#344d60] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#1b2e40] transition-all disabled:opacity-50 dark:bg-[#344d60] dark:hover:bg-[#243b53]">
                         {loading ? <Loader2 className="animate-spin" /> : "Add Property"}
                     </button>
-                    <button type="button" onClick={() => formik.resetForm()} className="px-8 py-4 bg-gray-100 text-gray-500 rounded-2xl font-black hover:bg-gray-200 transition-all">Cancel</button>
+                    <button type="button" onClick={() => formik.resetForm()} className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg font-semibold hover:bg-gray-200 transition-all dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Cancel</button>
                 </div>
             </form>
         </div>

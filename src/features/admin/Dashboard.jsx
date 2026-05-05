@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, LayoutGrid, Users, Settings, ArrowUpRight, Loader2, Building2, Heart, Eye } from "lucide-react";
 import supabaseApi from '../../config/supabaseApi';
@@ -61,84 +61,97 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div className="flex min-h-screen bg-[#f8f9fa]">
+        <div className="flex min-h-screen bg-[#f8fafc] text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
             <AdminSidebar />
 
             <div className="flex-1 ml-64">
                 <AdminHeader theme={theme} onToggleTheme={toggleTheme} adminName={user?.name || "Admin User"} />
 
-                <main className="p-8 max-w-6xl mx-auto">
-                    <div className="flex justify-between items-center mb-8">
-                        <h1 className="text-2xl font-black text-slate-800 tracking-tight">Dashboard</h1>
+                <main className="p-8 max-w-7xl mx-auto space-y-8">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h1 className="text-3xl font-bold text-slate-950 tracking-tight dark:text-white">Dashboard</h1>
+                            <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">Overview of your real estate platform</p>
+                        </div>
                         <button
                             onClick={() => navigate('/admin/add-property')}
-                            className="bg-[#1e293b] text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-black transition-all shadow-sm"
+                            className="bg-[#344d60] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#1b2e40] transition-all shadow-sm hover:shadow-md dark:bg-[#344d60] dark:hover:bg-[#243b53]"
                         >
                             <Plus size={18} /> Add Property
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <StatCard
                             title="Total Properties"
                             value={stats.totalProperties}
 
-                            color="bg-gray-100"
+                            color="bg-white dark:bg-slate-900"
                             icon={<Building2 size={20} />}
                         />
                         <StatCard
                             title="Active Users"
                             value={stats.activeUsers.toLocaleString()}
 
-                            color="bg-blue-50"
+                            color="bg-white dark:bg-slate-900"
                             icon={<Users size={20} />}
                         />
                         <StatCard
                             title="Total Favorites"
                             value={stats.totalFavorites.toLocaleString()}
-                            color="bg-red-50"
+                            color="bg-white dark:bg-slate-900"
                             icon={<Heart size={20} />}
                         />
                         <StatCard
                             title="New Listings"
                             value={stats.newListings}
-                            color="bg-purple-50"
+                            color="bg-white dark:bg-slate-900"
                             icon={<Eye size={20} />}
                         />
                     </div>
 
-                    <h2 className="text-lg  text-slate-800 mb-6 font-bold">Quick Actions</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                        <QuickActionCard title="Add New Property" desc="Create a new listing" icon={Plus} onClick={() => navigate('/admin/add-property')} />
-                        <QuickActionCard title="Manage Properties" desc="View & edit listings" icon={LayoutGrid} onClick={() => navigate('/admin/properties')} />
-                        <QuickActionCard title="View Users" desc="Manage user accounts" icon={Users} onClick={() => navigate('/admin/users')} />
-                        <QuickActionCard title="Settings" icon={Settings} desc="System preferences" onClick={() => navigate('/admin/settings')} />
+                    <div>
+                        <div className="mb-6">
+                            <h2 className="text-2xl font-semibold text-slate-950 dark:text-white">Quick Actions</h2>
+                            <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">Manage your platform efficiently</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <QuickActionCard title="Add New Property" desc="Create a new listing" icon={Plus} onClick={() => navigate('/admin/add-property')} />
+                            <QuickActionCard title="Manage Properties" desc="View & edit listings" icon={LayoutGrid} onClick={() => navigate('/admin/properties')} />
+                            <QuickActionCard title="View Users" desc="Manage user accounts" icon={Users} onClick={() => navigate('/admin/users')} />
+                            <QuickActionCard title="Settings" icon={Settings} desc="System preferences" onClick={() => navigate('/admin/settings')} />
+                        </div>
                     </div>
 
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg font-black text-slate-800">Recent Properties</h2>
-                        <button
-                            onClick={() => navigate('/admin/properties')}
-                            className="text-xs font-black text-gray-400 flex items-center gap-1 hover:text-blue-600 transition-colors"
-                        >
-                            View all <ArrowUpRight size={14} />
-                        </button>
-                    </div>
-
-                    <div className="space-y-4">
-                        {loading ? (
-                            <div className="flex justify-center p-10">
-                                <Loader2 className="animate-spin text-gray-300" size={40} />
+                    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden dark:bg-slate-900 dark:border-slate-800">
+                        <div className="p-6 border-b border-slate-200 flex items-center justify-between dark:border-slate-800">
+                            <div>
+                                <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Recent Properties</h2>
+                                <p className="text-sm text-gray-500 mt-1 dark:text-slate-400">Latest property listings</p>
                             </div>
-                        ) : (
-                            recentProperties.length > 0 ? (
-                                recentProperties.map(prop => <RecentPropertyItem key={prop.id} property={prop} />)
-                            ) : (
-                                <div className="text-center p-10 text-gray-400 bg-white rounded-2xl border border-dashed">
-                                    No properties found. Start by adding one!
+                            <button
+                                onClick={() => navigate('/admin/properties')}
+                                className="text-sm font-medium text-[#344d60] flex items-center gap-1 hover:text-[#1b2e40] hover:underline transition-colors dark:text-slate-200 dark:hover:text-white"
+                            >
+                                View all <ArrowUpRight size={14} />
+                            </button>
+                        </div>
+
+                        <div className="divide-y divide-slate-200 dark:divide-slate-800">
+                            {loading ? (
+                                <div className="flex justify-center p-10">
+                                    <Loader2 className="animate-spin text-slate-300 dark:text-slate-600" size={40} />
                                 </div>
-                            )
-                        )}
+                            ) : (
+                                recentProperties.length > 0 ? (
+                                    recentProperties.map(prop => <RecentPropertyItem key={prop.id} property={prop} />)
+                                ) : (
+                                    <div className="text-center p-10 text-slate-400 bg-white border border-dashed border-slate-200 dark:bg-slate-900 dark:border-slate-700">
+                                        No properties found. Start by adding one!
+                                    </div>
+                                )
+                            )}
+                        </div>
                     </div>
                 </main>
             </div>
