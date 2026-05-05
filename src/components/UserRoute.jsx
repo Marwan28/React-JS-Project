@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import RouteLoading from "./RouteLoading";
 import { isAdminUser } from "../utils/authRole";
 
-export default function PublicRoute({ children }) {
+export default function UserRoute({ children }) {
   const { isLoggedIn, loading, user } = useSelector((state) => state.auth);
 
   if (loading) {
@@ -12,10 +12,6 @@ export default function PublicRoute({ children }) {
 
   if (isLoggedIn && isAdminUser(user)) {
     return <Navigate to="/admin/dashboard" replace />;
-  }
-
-  if (isLoggedIn) {
-    return <Navigate to="/" replace />;
   }
 
   return children;

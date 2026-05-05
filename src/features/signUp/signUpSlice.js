@@ -13,6 +13,7 @@ export const signUpUser = createAsyncThunk(
           name,
           location,
           phone,
+          role: "user",
         },
       },
     });
@@ -42,6 +43,7 @@ export const signUpUser = createAsyncThunk(
           email,
           location,
           phone,
+          role: "user",
         },
         { onConflict: "id" },
       );

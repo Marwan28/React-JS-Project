@@ -1,7 +1,6 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminSidebar from "./features/admin/components/AdminSidebar";
 import About from "./features/about/About";
 import ContactUS from "./features/contact_us/ContactUS";
 import Favourite from "./features/favourite/Favourite";
@@ -16,6 +15,8 @@ import SignUp from "./features/signUp/SignUp";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import AdminRoute from "./components/AdminRoute";
+import UserRoute from "./components/UserRoute";
 import { useTheme } from "./theme/useTheme";
 import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
@@ -64,8 +65,6 @@ function App() {
 
   return (
     <>
-      {isAdminPage && <AdminSidebar />}
-
       {!isAdminPage && !isSpecialPage && (
         isAuthenticated ? (
           <Header theme={theme} onToggleTheme={toggleTheme} />
@@ -75,25 +74,64 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact_us" element={<ContactUS />} />
-        <Route path="/listing" element={<Listing />} />
-        <Route path="/listing/:id" element={<PropertyDetails />} />
+        <Route
+          path="/"
+          element={
+            <UserRoute>
+              <Home />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <UserRoute>
+              <About />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/contact_us"
+          element={
+            <UserRoute>
+              <ContactUS />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/listing"
+          element={
+            <UserRoute>
+              <Listing />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/listing/:id"
+          element={
+            <UserRoute>
+              <PropertyDetails />
+            </UserRoute>
+          }
+        />
         <Route
           path="/favourite"
           element={
-            <ProtectedRoute>
-              <Favourite />
-            </ProtectedRoute>
+            <UserRoute>
+              <ProtectedRoute>
+                <Favourite />
+              </ProtectedRoute>
+            </UserRoute>
           }
         />
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
+            <UserRoute>
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            </UserRoute>
           }
         />
         <Route
@@ -112,12 +150,48 @@ function App() {
             </PublicRoute>
           }
         />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/add-property" element={<AddProperty />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/add-property"
+          element={
+            <AdminRoute>
+              <AddProperty />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <AdminRoute>
+              <NotFound />
+            </AdminRoute>
+          }
+        />
 
         <Route path="/offline" element={<Offline />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <UserRoute>
+              <NotFound />
+            </UserRoute>
+          }
+        />
       </Routes>
 
       {!isAdminPage && !isSpecialPage && <Footer />}

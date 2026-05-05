@@ -1,26 +1,48 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { supabase } from "../../config/supabaseClient";
 
-const getStorageUser = (user) => ({
-  id: user.id,
-  email: user.email,
-  name: user.user_metadata?.full_name || user.user_metadata?.name || "",
-  avatar: user.user_metadata?.avatar_url || "",
-  phone: user.user_metadata?.phone || "",
-  location: user.user_metadata?.location || "",
-});
+const getStorageUser = (user, profile = {}) => {
+  const metadata = user.user_metadata || {};
+  const userType = metadata.type || metadata.role || profile.type || profile.role || "user";
 
-const saveUserSession = (user, token) => {
-  sessionStorage.setItem("token", token);
-  sessionStorage.setItem("userId", user.id);
-  sessionStorage.setItem("user", JSON.stringify(getStorageUser(user)));
+  return {
+    id: user.id,
+    email: profile.email || user.email,
+    name: profile.name || profile.full_name || metadata.full_name || metadata.name || "",
+    avatar: profile.avatar || profile.avatar_url || metadata.avatar_url || "",
+    phone: profile.phone || metadata.phone || "",
+    location: profile.location || metadata.location || "",
+    type: userType,
+    role: userType,
+  };
 };
 
-const saveToStorage = (user, token, rememberMe) => {
+const getUserProfile = async (userId) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Profile load error:", error.message);
+    return {};
+  }
+
+  return data || {};
+};
+
+const saveUserSession = (user, token, profile) => {
+  sessionStorage.setItem("token", token);
+  sessionStorage.setItem("userId", user.id);
+  sessionStorage.setItem("user", JSON.stringify(getStorageUser(user, profile)));
+};
+
+const saveToStorage = (user, token, rememberMe, profile) => {
   const storage = rememberMe ? localStorage : sessionStorage;
   storage.setItem("token", token);
   storage.setItem("userId", user.id);
-  storage.setItem("user", JSON.stringify(getStorageUser(user)));
+  storage.setItem("user", JSON.stringify(getStorageUser(user, profile)));
 };
 const getSavedToken = () =>
   localStorage.getItem("token") || sessionStorage.getItem("token") || null;
@@ -46,7 +68,7 @@ const clearStorage = () => {
 const initialState = {
   user: getSavedUser(),
   isLoggedIn: !!getSavedToken(),
-  loading: false,
+  loading: !!getSavedToken(),
   error: null,
   storageSource: localStorage.getItem("user")
     ? "localStorage 🟢 (Remember Me)"
@@ -67,7 +89,9 @@ export const login = createAsyncThunk(
       return rejectWithValue(error.message);
     }
 
-    return { user: data.user, token: data.session.access_token, rememberMe };
+    const profile = await getUserProfile(data.user.id);
+
+    return { user: data.user, token: data.session.access_token, rememberMe, profile };
   },
 );
 
@@ -87,9 +111,11 @@ export const restoreAuthFromToken = createAsyncThunk(
       return rejectWithValue(error?.message || "Invalid saved token");
     }
 
-    saveUserSession(data.user, token);
+    const profile = await getUserProfile(data.user.id);
 
-    return { user: data.user, token };
+    saveUserSession(data.user, token, profile);
+
+    return { user: data.user, token, profile };
   },
 );
 
@@ -116,18 +142,18 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-        const { user, token, rememberMe } = action.payload;
+        const { user, token, rememberMe, profile } = action.payload;
 
         state.loading = false;
         state.isLoggedIn = true;
         state.error = null;
         state.token = token;
-        state.user = getStorageUser(user);
+        state.user = getStorageUser(user, profile);
         state.storageSource = rememberMe
           ? "localStorage 🟢 (Remember Me)"
           : "sessionStorage 🔵 (Session Only)";
 
-        saveToStorage(user, token, rememberMe);
+        saveToStorage(user, token, rememberMe, profile);
         console.log(action.payload);
       })
       .addCase(login.rejected, (state, action) => {
@@ -155,9 +181,9 @@ const authSlice = createSlice({
           return;
         }
 
-        const { user, token } = action.payload;
+        const { user, token, profile } = action.payload;
 
-        state.user = getStorageUser(user);
+        state.user = getStorageUser(user, profile);
         state.isLoggedIn = true;
         state.token = token;
         state.storageSource = "sessionStorage 🔵 (Session Restored)";
