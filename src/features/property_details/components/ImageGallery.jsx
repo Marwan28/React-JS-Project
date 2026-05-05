@@ -1,4 +1,20 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) => {
+    const totalImages = images.length || 1;
+
+    const goToPreviousImage = () => {
+        setActiveImage((currentImage) =>
+            currentImage === 0 ? totalImages - 1 : currentImage - 1
+        );
+    };
+
+    const goToNextImage = () => {
+        setActiveImage((currentImage) =>
+            currentImage === totalImages - 1 ? 0 : currentImage + 1
+        );
+    };
+
     return (
         <div className="space-y-4">
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-xl bg-gray-200" style={{ height: '500px' }}>
@@ -8,8 +24,30 @@ const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) =>
                     alt="Property"
                 />
                 <div className="absolute bottom-6 right-6 bg-black/60 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
-                    {activeImage + 1} / {images.length || 1}
+                    {activeImage + 1} / {totalImages}
                 </div>
+
+                {totalImages > 1 && (
+                    <>
+                        <button
+                            type="button"
+                            onClick={goToPreviousImage}
+                            className="absolute left-5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-[#23404a] shadow-lg backdrop-blur-sm transition hover:bg-white/35 dark:bg-slate-950/10 dark:text-cyan-300 dark:hover:bg-slate-950/35"
+                            aria-label="Previous image"
+                        >
+                            <ChevronLeft size={26} />
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={goToNextImage}
+                            className="absolute right-5 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-[#23404a] shadow-lg backdrop-blur-sm transition hover:bg-white/35 dark:bg-slate-950/10 dark:text-cyan-300 dark:hover:bg-slate-950/35"
+                            aria-label="Next image"
+                        >
+                            <ChevronRight size={26} />
+                        </button>
+                    </>
+                )}
             </div>
 
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
