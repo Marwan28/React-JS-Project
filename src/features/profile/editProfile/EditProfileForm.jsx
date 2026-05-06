@@ -3,7 +3,7 @@ import { useEditProfile } from "./useEditProfile";
 
 const fields = [
   { name: "name",     label: "Full Name",    type: "text"  },
-  { name: "email",    label: "Email Address", type: "email" },
+ 
   { name: "phone",    label: "Phone Number",  type: "text"  },
   { name: "location", label: "Location",      type: "text"  },
 ];
