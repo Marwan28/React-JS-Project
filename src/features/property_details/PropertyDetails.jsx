@@ -73,7 +73,7 @@ const PropertyDetails = () => {
     <div className="bg-[#f8f9fa] min-h-screen font-sans transition-colors dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <Link to="/listings" className="flex items-center gap-1 text-gray-500 hover:text-black font-medium transition-all">
+          <Link to="/listing" className="flex items-center gap-1 text-gray-500 hover:text-black font-medium transition-all">
             <ChevronLeft size={20} /> Back to Listings
           </Link>
         </div>
