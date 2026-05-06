@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {
-    LayoutGrid, Building2, Users, Settings,
+    LayoutGrid, Building2, Settings,
     ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
@@ -13,7 +13,6 @@ const AdminSidebar = () => {
     const menuItems = [
         { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/admin/dashboard' },
         { icon: <Building2 size={22} />, label: 'Properties', path: '/admin/properties' }, // ده المسار اللي زميلك شغال عليه
-        { icon: <Users size={22} />, label: 'Users', path: '/admin/users' },
         { icon: <Settings size={22} />, label: 'Settings', path: '/admin/settings' },
     ];
 

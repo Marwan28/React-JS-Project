@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
-import supabaseApi from '../../../config/supabaseApi';
+import { supabase } from '../../../config/supabaseClient';
+import { propertyTypeOptions } from '../../../constants/propertyTypes';
 
 const PropertyForm = () => {
     const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ const PropertyForm = () => {
         bathrooms: Yup.number().min(0).required('Required'),
         size: Yup.number().positive().required('Required'),
         main_image: Yup.string().url('Invalid URL').required('Required'),
-        extra_images: Yup.string().required('Please add at least one gallery image'),
+        extra_images: Yup.string(),
     });
 
     const formik = useFormik({
@@ -47,16 +48,35 @@ const PropertyForm = () => {
                     featured: values.is_featured
                 };
 
-                const result = await supabaseApi.insert('properties', propertyData);
+                const { data: newProperty, error: propertyError } = await supabase
+                    .from('properties')
+                    .insert(propertyData)
+                    .select()
+                    .single();
 
-                if (result && result.length > 0) {
-                    const propertyId = result[0].id;
-                    const imagesArray = values.extra_images.split(',').map(url => ({
-                        property_id: propertyId,
-                        image_url: url.trim()
-                    }));
+                if (propertyError) {
+                    throw propertyError;
+                }
 
-                    await supabaseApi.insert('property_images', imagesArray);
+                if (newProperty?.id) {
+                    const imagesArray = values.extra_images
+                        .split(',')
+                        .map(url => url.trim())
+                        .filter(Boolean)
+                        .map(url => ({
+                            property_id: newProperty.id,
+                            image_url: url
+                        }));
+
+                    if (imagesArray.length) {
+                        const { error: imagesError } = await supabase
+                            .from('property_images')
+                            .insert(imagesArray);
+
+                        if (imagesError) {
+                            throw imagesError;
+                        }
+                    }
 
                     setStatus({ type: 'success', message: 'Property added successfully!' });
                     formik.resetForm();
@@ -65,13 +85,18 @@ const PropertyForm = () => {
                 }
             } catch (error) {
                 console.error(error);
-                setStatus({ type: 'error', message: 'Error adding property. Check console.' });
+                setStatus({ type: 'error', message: error.message || 'Error adding property. Check console.' });
             } finally {
                 setLoading(false);
                 setTimeout(() => setStatus({ type: '', message: '' }), 5000);
             }
         },
     });
+
+    const getError = (name) =>
+        formik.touched[name] && formik.errors[name] ? (
+            <p className="text-xs font-medium text-red-600 dark:text-red-300">{formik.errors[name]}</p>
+        ) : null;
 
     const inputClass = (name) => `
         w-full px-4 py-2.5 bg-gray-50 border rounded-lg outline-none transition-all duration-200 text-slate-950 placeholder:text-gray-400 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500
@@ -94,10 +119,12 @@ const PropertyForm = () => {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Title</label>
                         <input name="title" {...formik.getFieldProps('title')} className={inputClass('title')} placeholder="Property Title" />
+                        {getError('title')}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Price ($)</label>
                         <input name="price" type="number" {...formik.getFieldProps('price')} className={inputClass('price')} placeholder="850,000" />
+                        {getError('price')}
                     </div>
                 </div>
 
@@ -105,10 +132,12 @@ const PropertyForm = () => {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">City</label>
                         <input name="city" {...formik.getFieldProps('city')} className={inputClass('city')} placeholder="e.g. Cairo" />
+                        {getError('city')}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Address</label>
                         <input name="location" {...formik.getFieldProps('location')} className={inputClass('location')} placeholder="Street, District" />
+                        {getError('location')}
                     </div>
                 </div>
 
@@ -116,37 +145,46 @@ const PropertyForm = () => {
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Type</label>
                         <select name="type" {...formik.getFieldProps('type')} className={inputClass('type')}>
-                            <option value="Villa">Villa</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Studio">Studio</option>
+                            {propertyTypeOptions.map((type) => (
+                                <option key={type.value} value={type.value}>
+                                    {type.label}
+                                </option>
+                            ))}
                         </select>
+                        {getError('type')}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Bedrooms</label>
                         <input name="bedrooms" type="number" {...formik.getFieldProps('bedrooms')} className={inputClass('bedrooms')} />
+                        {getError('bedrooms')}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Bathrooms</label>
                         <input name="bathrooms" type="number" {...formik.getFieldProps('bathrooms')} className={inputClass('bathrooms')} />
+                        {getError('bathrooms')}
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Area (sqft)</label>
                         <input name="size" type="number" {...formik.getFieldProps('size')} className={inputClass('size')} />
+                        {getError('size')}
                     </div>
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Main Image URL</label>
                     <input name="main_image" {...formik.getFieldProps('main_image')} className={inputClass('main_image')} placeholder="https://..." />
+                    {getError('main_image')}
                 </div>
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Gallery (URLs separated by commas)</label>
                     <textarea name="extra_images" {...formik.getFieldProps('extra_images')} className={`${inputClass('extra_images')} h-24`} placeholder="url1, url2, url3" />
+                    {getError('extra_images')}
                 </div>
 
                 <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Description</label>
                     <textarea name="description" {...formik.getFieldProps('description')} className={`${inputClass('description')} h-32`} />
+                    {getError('description')}
                 </div>
 
                 <div className="flex items-center gap-3">

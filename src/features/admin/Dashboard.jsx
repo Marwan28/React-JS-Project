@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, LayoutGrid, Users, Settings, ArrowUpRight, Loader2, Building2, Heart, Eye } from "lucide-react";
+import { Plus, LayoutGrid, Users, Settings, ArrowUpRight, Loader2, Building2, Heart } from "lucide-react";
 import supabaseApi from '../../config/supabaseApi';
 import AdminSidebar from '../admin/components/AdminSidebar';
 import AdminHeader from '../admin/components/AdminHeader';
@@ -20,8 +20,7 @@ const Dashboard = () => {
     const [stats, setStats] = useState({
         totalProperties: 0,
         activeUsers: 0,
-        totalFavorites: 0,
-        newListings: 0
+        totalFavorites: 0
     });
 
     useEffect(() => {
@@ -37,14 +36,7 @@ const Dashboard = () => {
                     setStats({
                         totalProperties: propertiesData.length,
                         activeUsers: usersData?.length || 2847,
-                        totalFavorites: favoritesData?.length || 3,
-                        newListings: propertiesData.filter(p => {
-                            const today = new Date();
-                            const createdDate = new Date(p.created_at);
-                            const diffTime = Math.abs(today - createdDate);
-                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                            return diffDays <= 7;
-                        }).length || propertiesData.length
+                        totalFavorites: favoritesData?.length || 3
                     });
 
                     const sorted = [...propertiesData].sort((a, b) => b.id - a.id);
@@ -81,7 +73,7 @@ const Dashboard = () => {
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <StatCard
                             title="Total Properties"
                             value={stats.totalProperties}
@@ -102,12 +94,6 @@ const Dashboard = () => {
                             color="bg-white dark:bg-slate-900"
                             icon={<Heart size={20} />}
                         />
-                        <StatCard
-                            title="New Listings"
-                            value={stats.newListings}
-                            color="bg-white dark:bg-slate-900"
-                            icon={<Eye size={20} />}
-                        />
                     </div>
 
                     <div>
@@ -115,10 +101,9 @@ const Dashboard = () => {
                             <h2 className="text-2xl font-semibold text-slate-950 dark:text-white">Quick Actions</h2>
                             <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">Manage your platform efficiently</p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <QuickActionCard title="Add New Property" desc="Create a new listing" icon={Plus} onClick={() => navigate('/admin/add-property')} />
                             <QuickActionCard title="Manage Properties" desc="View & edit listings" icon={LayoutGrid} onClick={() => navigate('/admin/properties')} />
-                            <QuickActionCard title="View Users" desc="Manage user accounts" icon={Users} onClick={() => navigate('/admin/users')} />
                             <QuickActionCard title="Settings" icon={Settings} desc="System preferences" onClick={() => navigate('/admin/settings')} />
                         </div>
                     </div>

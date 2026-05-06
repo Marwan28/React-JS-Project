@@ -21,6 +21,7 @@ import { useTheme } from "./theme/useTheme";
 import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
 import AddProperty from "./features/admin/AddProperty";
+import AdminProperties from "./features/admin/AdminProperties";
 import Dashboard from "./features/admin/Dashboard";
 import NotFound from "./features/not_found/NotFound";
 import Offline from "./features/offline/Offline";
@@ -171,6 +172,14 @@ function App() {
           element={
             <AdminRoute>
               <AddProperty />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/properties"
+          element={
+            <AdminRoute>
+              <AdminProperties />
             </AdminRoute>
           }
         />
