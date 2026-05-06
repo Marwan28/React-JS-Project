@@ -71,7 +71,7 @@ function ProfileSidebar({ isEditing, setIsEditing, refreshKey }) {
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 text-center font-sans border border-gray-100 max-w-[350px] mx-auto w-full h-fit dark:bg-slate-900 dark:border-slate-800">
+    <div className="bg-white rounded-2xl shadow-sm p-6 text-center font-sans border border-gray-100 max-w-87.5 mx-auto w-full h-fit dark:bg-slate-900 dark:border-slate-800">
       <div className="w-24 h-24 mx-auto rounded-full bg-[#1e3a4c] flex items-center justify-center text-white text-3xl shadow-inner mb-4">
         {profile.name?.charAt(0).toUpperCase() || "👤"}
       </div>
