@@ -22,6 +22,7 @@ import { restoreAuthFromToken } from "./Redux/Reducer/authSlice";
 import { loadFavouriteItems } from "./features/favourite/favouriteSlice";
 import AddProperty from "./features/admin/AddProperty";
 import AdminProperties from "./features/admin/AdminProperties";
+import AdminSettings from "./features/admin/AdminSettings";
 import Dashboard from "./features/admin/Dashboard";
 import NotFound from "./features/not_found/NotFound";
 import Offline from "./features/offline/Offline";
@@ -180,6 +181,14 @@ function App() {
           element={
             <AdminRoute>
               <AdminProperties />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/settings"
+          element={
+            <AdminRoute>
+              <AdminSettings />
             </AdminRoute>
           }
         />
