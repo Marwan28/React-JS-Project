@@ -9,7 +9,6 @@ const AdminSidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const location = useLocation();
 
-    // 1. التعديل هنا: خليت الـ Properties تروح لـ /admin/properties
     const menuItems = [
         { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/admin/dashboard' },
         { icon: <Building2 size={22} />, label: 'Properties', path: '/admin/properties' }, // ده المسار اللي زميلك شغال عليه
@@ -34,7 +33,6 @@ const AdminSidebar = () => {
 
             <nav className="flex-1 px-3 space-y-1">
                 {menuItems.map((item) => {
-                    // 2. بنشوف لو إحنا في الصفحة الحالية أو صفحة فرعية منها (زي الـ add-property)
                     const isActive = location.pathname === item.path ||
                         (item.path === '/admin/properties' && location.pathname === '/admin/add-property');
 
