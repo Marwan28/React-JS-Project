@@ -31,18 +31,23 @@ const getUserIdFromToken = async () => {
 
 export function useEditProfile(onSave) {
   const authUserId = useSelector((state) => state.auth.user?.id);
+
   const [formData, setFormData] = useState({
-    name: "", email: "", phone: "", location: "",
+    name: "",
+    phone: "",
+    location: "",
   });
-  const [errors, setErrors]     = useState({});
+
+  const [errors, setErrors] = useState({});
   const [profileId, setProfileId] = useState(null);
-  const [saving, setSaving]     = useState(false);
-  const [loading, setLoading]   = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         setLoading(true);
+
         const userId =
           authUserId || getStoredUserId() || (await getUserIdFromToken());
 
@@ -56,9 +61,11 @@ export function useEditProfile(onSave) {
         if (profile) {
           const p = profile;
           setProfileId(p.id);
+
           setFormData({
-            name: p.name || "", email: p.email || "",
-            phone: p.phone || "", location: p.location || "",
+            name: p.name || "",
+            phone: p.phone || "",
+            location: p.location || "",
           });
         }
       } catch (err) {
@@ -67,22 +74,32 @@ export function useEditProfile(onSave) {
         setLoading(false);
       }
     };
+
     fetchProfile();
   }, [authUserId]);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+
     if (errors[e.target.name]) {
-      setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        [e.target.name]: "",
+      }));
     }
   };
 
   const handleSave = async () => {
     const newErrors = validateProfile(formData);
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+
     try {
       if (!profileId) {
         setErrors({ form: "Profile data is not loaded yet" });
@@ -90,7 +107,9 @@ export function useEditProfile(onSave) {
       }
 
       setSaving(true);
+
       await supabaseApi.update("profiles", profileId, formData);
+
       onSave();
     } catch (err) {
       console.error("❌ Error saving:", err);
@@ -99,5 +118,12 @@ export function useEditProfile(onSave) {
     }
   };
 
-  return { formData, errors, saving, loading, handleChange, handleSave };
+  return {
+    formData,
+    errors,
+    saving,
+    loading,
+    handleChange,
+    handleSave,
+  };
 }

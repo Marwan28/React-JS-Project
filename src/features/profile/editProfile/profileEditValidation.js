@@ -8,13 +8,6 @@ export const validateProfile = (formData) => {
     errors.name = "Name must contain letters and cannot be numbers only";
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!formData.email.trim()) {
-    errors.email = "Email is required";
-  } else if (!emailRegex.test(formData.email)) {
-    errors.email = "Please enter a valid email address";
-  }
-
   const phoneRegex = /^[0-9]+$/;
   if (!formData.phone.trim()) {
     errors.phone = "Phone number is required";
