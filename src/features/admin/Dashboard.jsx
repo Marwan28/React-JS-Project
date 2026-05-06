@@ -31,7 +31,7 @@ const Dashboard = () => {
                 const propertiesData = await supabaseApi.get('properties');
 
                 const usersData = await supabaseApi.get('profiles').catch(() => []);
-                const favoritesData = await supabaseApi.get('favourites').catch(() => []);
+                const favoritesData = await supabaseApi.get('favorites').catch(() => []);
 
                 if (propertiesData) {
                     setStats({
