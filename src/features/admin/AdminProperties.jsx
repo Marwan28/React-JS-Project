@@ -88,6 +88,7 @@ const AdminProperties = () => {
     const [status, setStatus] = useState({ type: "", message: "" });
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [deleteModal, setDeleteModal] = useState({ isOpen: false, property: null });
+    const [viewModal, setViewModal] = useState({ isOpen: false, property: null });
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editingProperty, setEditingProperty] = useState(null);
     const [editLoading, setEditLoading] = useState(false);
@@ -360,7 +361,7 @@ const AdminProperties = () => {
         <div className="flex min-h-screen bg-[#f8fafc] text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
             <AdminSidebar />
 
-            <div className="ml-64 flex-1 transition-all duration-300">
+            <div className="min-w-0 flex-1 transition-all duration-300 lg:ml-64">
                 <AdminHeader
                     theme={theme}
                     onToggleTheme={toggleTheme}
@@ -368,10 +369,10 @@ const AdminProperties = () => {
                     adminEmail={user?.email || "admin@luxeestate.com"}
                 />
 
-                <main className="mx-auto max-w-7xl space-y-6 p-8">
+                <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 pb-24 sm:px-6 lg:p-8">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold tracking-tight text-slate-950 dark:text-white">
+                            <h1 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
                                 Properties Management
                             </h1>
                             <p className="mt-2 text-sm text-gray-500 dark:text-slate-400">
@@ -379,18 +380,18 @@ const AdminProperties = () => {
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-3">
+                        <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
                             <button
                                 type="button"
                                 onClick={() => loadProperties()}
-                                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
+                                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-600 transition hover:bg-gray-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
                             >
                                 <RefreshCw className="h-4 w-4" />
                                 Refresh
                             </button>
                             <Link
                                 to="/admin/add-property"
-                                className="inline-flex items-center gap-2 rounded-lg bg-[#344d60] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1b2e40] hover:shadow-md dark:bg-[#344d60] dark:hover:bg-[#243b53]"
+                                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#344d60] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1b2e40] hover:shadow-md dark:bg-[#344d60] dark:hover:bg-[#243b53]"
                             >
                                 <Plus className="h-4 w-4" />
                                 Add Property
@@ -427,14 +428,14 @@ const AdminProperties = () => {
                             searchPlaceholder="Search properties..."
                             actions={(property) => (
                                 <div className="flex items-center gap-2">
-                                    <Link
-                                        to={`/listing/${property.id}`}
-                                        target="_blank"
+                                    <button
+                                        type="button"
+                                        onClick={() => setViewModal({ isOpen: true, property })}
                                         className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-[#1A2C3C] dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                                         title="View"
                                     >
                                         <Eye className="h-4 w-4" />
-                                    </Link>
+                                    </button>
                                     <button
                                         type="button"
                                         onClick={() => handleOpenEdit(property)}
@@ -457,6 +458,15 @@ const AdminProperties = () => {
                     )}
                 </main>
             </div>
+
+            <Modal
+                isOpen={viewModal.isOpen}
+                onClose={() => setViewModal({ isOpen: false, property: null })}
+                title="Property Details"
+                size="lg"
+            >
+                <PropertyDetailsView property={viewModal.property} />
+            </Modal>
 
             <Modal
                 isOpen={editModalOpen}
@@ -504,6 +514,58 @@ const SummaryCard = ({ title, value }) => (
     </div>
 );
 
+const PropertyDetailsView = ({ property }) => {
+    if (!property) return null;
+
+    const details = [
+        { label: "Price", value: formatPrice(property.price) },
+        { label: "Type", value: property.type || "Property" },
+        { label: "City", value: property.city || "Not set" },
+        { label: "Address", value: property.address || property.location || "Not set" },
+        { label: "Bedrooms", value: property.bedrooms ?? "Not set" },
+        { label: "Bathrooms", value: property.bathrooms ?? "Not set" },
+        { label: "Area", value: formatArea(property.area) },
+        { label: "Status", value: property.featured ? "Featured" : "Active" },
+    ];
+
+    return (
+        <div className="space-y-6">
+            {property.image && (
+                <img
+                    src={property.image}
+                    alt={property.title || "Property"}
+                    className="h-64 w-full rounded-xl border border-gray-200 object-cover dark:border-slate-800"
+                />
+            )}
+
+            <div>
+                <h3 className="text-2xl font-bold text-slate-950 dark:text-white">
+                    {property.title || "Untitled Property"}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-slate-400">
+                    {property.description || "No description available."}
+                </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {details.map((item) => (
+                    <div
+                        key={item.label}
+                        className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+                    >
+                        <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-slate-500">
+                            {item.label}
+                        </p>
+                        <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-white">
+                            {item.value}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const EditPropertyForm = ({ property, loading, onCancel, onSubmit }) => {
     const formik = useFormik({
         enableReinitialize: true,
@@ -526,7 +588,7 @@ const EditPropertyForm = ({ property, loading, onCancel, onSubmit }) => {
 
     return (
         <form onSubmit={formik.handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 <Field label="Title" error={getError("title")}>
                     <input name="title" {...formik.getFieldProps("title")} className={inputClass("title")} />
                 </Field>
@@ -535,7 +597,7 @@ const EditPropertyForm = ({ property, loading, onCancel, onSubmit }) => {
                 </Field>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 <Field label="City" error={getError("city")}>
                     <input name="city" {...formik.getFieldProps("city")} className={inputClass("city")} />
                 </Field>
@@ -544,7 +606,7 @@ const EditPropertyForm = ({ property, loading, onCancel, onSubmit }) => {
                 </Field>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
                 <Field label="Type" error={getError("type")}>
                     <select name="type" {...formik.getFieldProps("type")} className={inputClass("type")}>
                         {propertyTypeOptions.map((type) => (

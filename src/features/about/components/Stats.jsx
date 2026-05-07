@@ -10,13 +10,13 @@ const statsData = [
 
 function Stats() {
   return (
-    <section className="py-10 px-6 bg-gray-50 transition-colors dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 s mb-8">
+    <section className="bg-gray-50 px-4 py-10 transition-colors dark:bg-slate-950 sm:px-6">
+      <div className="mx-auto mb-8 grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {statsData.map((item) => {
           const Icon = item.icon;
 
           return (
-          <div key={item.id} className="bg-white p-10 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+          <div key={item.id} className="flex flex-col items-center rounded-xl border border-gray-100 bg-white p-6 text-center shadow-sm sm:p-10">
             <div className="bg-[#f0f4f8] p-4 rounded-full mb-6 dark:bg-slate-800">
               <Icon className="text-3xl text-[#1a364b] dark:text-cyan-300" />
             </div>

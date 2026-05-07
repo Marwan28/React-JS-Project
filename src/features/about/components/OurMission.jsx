@@ -1,10 +1,10 @@
 function OurMission() {
   return (
-    <section className="py-10 bg-white transition-colors dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-white border border-gray-100 shadow-sm rounded-[2rem] p-12 md:p-15 text-center transition-all hover:shadow-md">
-          <h2 className="text-4xl font-bold text-black dark:text-white mb-8">Our Mission</h2>
-          <p className="text-gray-500 text-xl md:text-2xl leading-relaxed max-w-4xl mx-auto font-light dark:text-slate-400 mb-8">
+    <section className="bg-white py-10 transition-colors dark:bg-slate-950">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm transition-all hover:shadow-md sm:p-10 lg:rounded-[2rem] lg:p-12">
+          <h2 className="mb-6 text-3xl font-bold text-black dark:text-white sm:text-4xl lg:mb-8">Our Mission</h2>
+          <p className="mx-auto mb-4 max-w-4xl text-base font-light leading-relaxed text-gray-500 dark:text-slate-400 sm:text-xl md:text-2xl lg:mb-8">
           To provide an exceptional real estate experience by combining expert knowledge, personalized service, and innovative technology.
            We are dedicated to helping our clients discover properties that exceed their expectations and create lasting value.
         </p>

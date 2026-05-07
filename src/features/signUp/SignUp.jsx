@@ -137,7 +137,7 @@ export default function SignUp() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 shadow-md">
+        <div className="rounded-2xl bg-white p-5 shadow-md sm:p-8">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

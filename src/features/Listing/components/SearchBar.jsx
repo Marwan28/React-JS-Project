@@ -19,7 +19,7 @@ export default function SearchBar({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-slate-200 bg-white shadow-sm px-4 py-4 md:px-5"
+      className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm md:px-5"
     >
       <div className="flex flex-col gap-3 md:flex-row md:items-center">
         <div className="flex-1">
@@ -37,7 +37,7 @@ export default function SearchBar({
           />
         </div>
 
-        <div className="flex gap-3">
+        <div className="grid grid-cols-2 gap-3 sm:flex">
           <button
             type="submit"
             className="rounded-xl bg-[#183a46] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-95"

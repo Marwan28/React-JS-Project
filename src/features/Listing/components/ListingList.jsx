@@ -37,9 +37,8 @@ export default function ListingList({
           filterObj.price_lte = filters.maxPrice;
         }
 
-        // location
-        if (filters.location) {
-          filterObj.location_ilike = filters.location;
+        if (filters.location?.trim()) {
+          filterObj.location = filters.location.trim();
         }
 
         if (searchTerm) {
@@ -69,7 +68,7 @@ export default function ListingList({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {properties.length > 0 ? (
         properties.map((property) => (
           <PropertyCard key={property.id} property={property} />

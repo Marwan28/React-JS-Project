@@ -22,16 +22,16 @@ const cards = [
 
 export default function HomeFeaturesList() {
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 py-8 px-2 md:px-0">
+    <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-8 sm:px-6 md:grid-cols-3">
       {cards.map((card) => (
         <div
           key={card.title}
-          className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col items-center shadow-sm transition hover:shadow-md w-full max-w-md mx-auto"
+          className="mx-auto flex w-full max-w-md flex-col items-center rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md sm:p-8"
         >
           <div className="bg-gray-100 rounded-full p-4 mb-4 flex items-center justify-center">
             {card.icon}
           </div>
-          <h3 className="text-2xl font-semibold mb-2 text-center">
+          <h3 className="mb-2 text-center text-xl font-semibold sm:text-2xl">
             {card.title}
           </h3>
           <p className="text-gray-600 text-center">{card.desc}</p>

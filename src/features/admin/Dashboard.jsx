@@ -56,18 +56,18 @@ const Dashboard = () => {
         <div className="flex min-h-screen bg-[#f8fafc] text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100">
             <AdminSidebar />
 
-            <div className="flex-1 ml-64">
+            <div className="min-w-0 flex-1 lg:ml-64">
                 <AdminHeader theme={theme} onToggleTheme={toggleTheme} adminName={user?.name || "Admin User"} />
 
-                <main className="p-8 max-w-7xl mx-auto space-y-8">
-                    <div className="flex justify-between items-center">
+                <main className="mx-auto max-w-7xl space-y-6 px-4 py-6 pb-24 sm:px-6 lg:space-y-8 lg:p-8">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold text-slate-950 tracking-tight dark:text-white">Dashboard</h1>
+                            <h1 className="text-2xl font-bold text-slate-950 tracking-tight dark:text-white sm:text-3xl">Dashboard</h1>
                             <p className="mt-1 text-sm text-gray-500 dark:text-slate-400">Overview of your real estate platform</p>
                         </div>
                         <button
                             onClick={() => navigate('/admin/add-property')}
-                            className="bg-[#344d60] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#1b2e40] transition-all shadow-sm hover:shadow-md dark:bg-[#344d60] dark:hover:bg-[#243b53]"
+                            className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#344d60] px-6 py-3 font-semibold text-white shadow-sm transition-all hover:bg-[#1b2e40] hover:shadow-md dark:bg-[#344d60] dark:hover:bg-[#243b53] sm:w-auto"
                         >
                             <Plus size={18} /> Add Property
                         </button>
@@ -108,8 +108,8 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden dark:bg-slate-900 dark:border-slate-800">
-                        <div className="p-6 border-b border-slate-200 flex items-center justify-between dark:border-slate-800">
+                    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                        <div className="flex flex-col gap-3 border-b border-slate-200 p-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                             <div>
                                 <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Recent Properties</h2>
                                 <p className="text-sm text-gray-500 mt-1 dark:text-slate-400">Latest property listings</p>

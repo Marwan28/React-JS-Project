@@ -111,9 +111,17 @@ getWithFilter: async (table, filters = {}) => {
         return;
       }
 
+      if (key === "location") {
+        const locationValue = encodeURIComponent(String(value).trim());
+
+        params.push(`or=(city.ilike.*${locationValue}*,address.ilike.*${locationValue}*)`);
+
+        return;
+      }
+
       // search
       if (key === "search") {
-        const searchValue = encodeURIComponent(String(value));
+        const searchValue = encodeURIComponent(String(value).trim());
 
         params.push(`title=ilike.*${searchValue}*`);
 
@@ -137,8 +145,9 @@ getWithFilter: async (table, filters = {}) => {
       // ilike
       else if (key.endsWith("_ilike")) {
         const column = key.replace("_ilike", "");
+        const filterValue = encodeURIComponent(String(value).trim());
 
-        params.push(`${column}=ilike.*${value}*`);
+        params.push(`${column}=ilike.*${filterValue}*`);
       }
 
       // eq

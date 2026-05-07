@@ -48,7 +48,7 @@ export default function Filters({ onApply }) {
   }
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm border">
+    <div className="rounded-lg border bg-white p-4 shadow-sm sm:p-6">
       <div className="flex items-start justify-between">
         <h3 className="text-lg font-semibold">Filters</h3>
 
@@ -61,7 +61,7 @@ export default function Filters({ onApply }) {
         </button>
       </div>
 
-      <div className="mt-5 space-y-5">
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:block lg:space-y-5">
         <RadioGroup
           title="Property Type"
           name="type"

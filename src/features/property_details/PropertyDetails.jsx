@@ -71,14 +71,14 @@ const PropertyDetails = () => {
 
   return (
     <div className="bg-[#f8f9fa] min-h-screen font-sans transition-colors dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-4 lg:py-8">
+        <div className="mb-6 lg:mb-8">
           <Link to="/listing" className="flex items-center gap-1 text-gray-500 hover:text-black font-medium transition-all">
             <ChevronLeft size={20} /> Back to Listings
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-10">
           <div className="lg:col-span-2 space-y-8">
             <ImageGallery
               images={images}

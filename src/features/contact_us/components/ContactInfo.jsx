@@ -26,8 +26,8 @@ const officeHours = [
 
 export default function ContactInfo() {
   return (
-    <div className="min-w-[280px] flex-1">
-      <h2 className="mb-4 text-3xl font-bold text-[#1a1a1a] dark:text-white">
+    <div className="min-w-0 flex-1">
+      <h2 className="mb-4 text-2xl font-bold text-[#1a1a1a] dark:text-white sm:text-3xl">
         Get In Touch
       </h2>
       <p className="mb-8 leading-7 text-gray-500 dark:text-slate-400">
@@ -63,7 +63,7 @@ export default function ContactInfo() {
         {officeHours.map(([day, hours]) => (
           <div
             key={day}
-            className="mb-2.5 flex justify-between text-sm text-gray-600 dark:text-slate-400"
+          className="mb-2.5 flex flex-col gap-1 text-sm text-gray-600 dark:text-slate-400 sm:flex-row sm:justify-between"
           >
             <span>{day}</span>
             <span>{hours}</span>

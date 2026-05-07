@@ -25,7 +25,7 @@ function EditProfileForm({ onSave }) {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow p-5 max-w-2xl w-full dark:bg-slate-900">
+    <div className="w-full max-w-2xl rounded-xl bg-white p-5 shadow dark:bg-slate-900">
 
       <h3 className="text-base font-semibold text-gray-800 dark:text-white mb-5 text-left ">
         Edit Profile
@@ -63,12 +63,13 @@ function EditProfileForm({ onSave }) {
         ))}
 
         <button
-  onClick={handleSave}
-  disabled={saving}
-className="mt-4 flex items-center gap-2 bg-slate-800 text-white px-7 py-3 rounded-2xl text-base font-medium hover:bg-slate-700 transition-all shadow ">
-  <Save size={16} />
-  {saving ? "Saving..." : "Save Changes"}
-</button>
+          onClick={handleSave}
+          disabled={saving}
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-800 px-7 py-3 text-base font-medium text-white shadow transition-all hover:bg-slate-700 sm:w-auto"
+        >
+          <Save size={16} />
+          {saving ? "Saving..." : "Save Changes"}
+        </button>
     
       </div>
     </div>

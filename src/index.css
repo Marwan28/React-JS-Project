@@ -6,6 +6,7 @@
   html {
     background: #f8fafc;
     color: #0f172a;
+    overflow-x: hidden;
   }
 
   html.dark {
@@ -15,6 +16,7 @@
 
   body {
     min-height: 100vh;
+    overflow-x: hidden;
     background: #f8fafc;
     color: #0f172a;
     transition:
@@ -30,7 +32,15 @@
   input,
   select,
   textarea {
+    min-width: 0;
     color: inherit;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
   }
 
   button {

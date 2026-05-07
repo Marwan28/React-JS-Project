@@ -54,7 +54,7 @@ export default function ContactForm() {
     "mb-2 block text-sm font-medium text-[#1a1a1a] dark:text-slate-200";
 
   return (
-    <div className="min-w-[280px] flex-1 rounded-2xl bg-white p-10 shadow-sm transition-colors dark:bg-slate-900 dark:shadow-black/30">
+    <div className="min-w-0 flex-1 rounded-2xl bg-white p-5 shadow-sm transition-colors dark:bg-slate-900 dark:shadow-black/30 sm:p-8 lg:p-10">
       <h2 className="mb-7 text-2xl font-bold text-[#1a1a1a] dark:text-white">
         Send Us a Message
       </h2>

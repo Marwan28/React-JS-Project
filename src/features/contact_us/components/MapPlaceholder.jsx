@@ -3,9 +3,9 @@ export default function MapPlaceholder() {
   const longitude = 31.2357;
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-10">
-      <div className="min-w-[280px] flex-1">
-        <div className="rounded-3xl overflow-hidden h-[300px] shadow-md border border-gray-100">
+    <div className="w-full px-4 pb-10 sm:px-6 lg:px-10">
+      <div className="min-w-0 flex-1">
+        <div className="h-[260px] overflow-hidden rounded-2xl border border-gray-100 shadow-md sm:h-[300px] lg:rounded-3xl">
           <a
             href={`https://www.google.com/maps?q=${latitude},${longitude}`}
             target="_blank"

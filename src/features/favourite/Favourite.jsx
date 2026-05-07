@@ -8,11 +8,11 @@ export default function Favourite() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-10">
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+        <div className="mb-2 flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200">
             <svg className="w-5 h-5 fill-gray-800" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
                 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
@@ -20,10 +20,10 @@ export default function Favourite() {
                 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Favorite Properties</h1>
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Favorite Properties</h1>
         </div>
 
-        <p className="text-gray-500 mb-8 ml-13">
+        <p className="mb-8 text-gray-500 sm:ml-[52px]">
           {loading
             ? "Loading your saved properties..."
             : favouriteItems.length > 0
@@ -55,7 +55,7 @@ export default function Favourite() {
           </div>
           
         ) : (
-          <div className="flex flex-col items-center justify-center py-30 text-center">
+          <div className="flex flex-col items-center justify-center py-20 text-center sm:py-28">
             <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-5">
               <svg className="w-9 h-9 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}

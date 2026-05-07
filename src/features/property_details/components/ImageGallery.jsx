@@ -17,7 +17,7 @@ const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) =>
 
     return (
         <div className="space-y-4">
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-xl bg-gray-200" style={{ height: '500px' }}>
+            <div className="relative h-[280px] overflow-hidden rounded-2xl bg-gray-200 shadow-xl sm:h-[380px] lg:h-[500px] lg:rounded-[2.5rem]">
                 <img
                     src={images.length > 0 ? images[activeImage]?.image_url : propertyImage}
                     className="w-full h-full object-cover transition-all duration-500"
@@ -55,7 +55,7 @@ const ImageGallery = ({ images, activeImage, setActiveImage, propertyImage }) =>
                     <div
                         key={index}
                         onClick={() => setActiveImage(index)}
-                        className={`relative min-w-\[140px\] h-24 rounded-2xl overflow-hidden cursor-pointer border-4 transition-all duration-300 
+                        className={`relative h-20 min-w-[112px] cursor-pointer overflow-hidden rounded-xl border-4 transition-all duration-300 sm:h-24 sm:min-w-[140px] sm:rounded-2xl 
               ${activeImage === index ? 'border-blue-600 scale-95 shadow-md' : 'border-transparent opacity-70 hover:opacity-100'}`}
                     >
                         <img src={img.image_url} className="w-full h-full object-cover" alt={`Thumb ${index}`} />

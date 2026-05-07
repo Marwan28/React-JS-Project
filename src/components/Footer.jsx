@@ -87,9 +87,9 @@ const contactItems = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-white px-5 pb-8 pt-16 transition-colors dark:border-slate-800 dark:bg-slate-950">
-      <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-10">
-        <div className="min-w-[200px] max-w-[260px]">
+    <footer className="border-t border-gray-200 bg-white px-4 pb-8 pt-12 transition-colors dark:border-slate-800 dark:bg-slate-950 sm:px-6 lg:px-5 lg:pt-16">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.9fr_1.2fr]">
+        <div className="max-w-sm">
           <div className="mb-4 flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1a2d3d] font-bold text-white">
               L
@@ -162,11 +162,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-10 flex max-w-7xl flex-wrap justify-between gap-2.5 border-t border-gray-200 pt-6 dark:border-slate-800">
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-4 border-t border-gray-200 pt-6 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-gray-400 dark:text-slate-500">
           © 2026 LuxeEstate. All rights reserved.
         </p>
-        <div className="flex gap-5">
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
           <span className="cursor-pointer text-sm text-gray-400 transition hover:text-[#1a2d3d] dark:text-slate-500 dark:hover:text-cyan-300">
             Privacy Policy
           </span>

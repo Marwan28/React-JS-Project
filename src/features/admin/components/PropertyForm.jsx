@@ -141,7 +141,7 @@ const PropertyForm = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 ml-1 dark:text-slate-300">Type</label>
                         <select name="type" {...formik.getFieldProps('type')} className={inputClass('type')}>
@@ -192,11 +192,11 @@ const PropertyForm = () => {
                     <label htmlFor="is_featured" className="font-medium text-gray-700 dark:text-slate-300">Featured Property</label>
                 </div>
 
-                <div className="flex gap-4 pt-4">
-                    <button type="submit" disabled={loading} className="flex-1 bg-[#344d60] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-[#1b2e40] transition-all disabled:opacity-50 dark:bg-[#344d60] dark:hover:bg-[#243b53]">
+                <div className="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:gap-4">
+                    <button type="submit" disabled={loading} className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#344d60] py-3 font-semibold text-white transition-all hover:bg-[#1b2e40] disabled:opacity-50 dark:bg-[#344d60] dark:hover:bg-[#243b53]">
                         {loading ? <Loader2 className="animate-spin" /> : "Add Property"}
                     </button>
-                    <button type="button" onClick={() => formik.resetForm()} className="px-8 py-3 bg-gray-100 text-gray-600 rounded-lg font-semibold hover:bg-gray-200 transition-all dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Cancel</button>
+                    <button type="button" onClick={() => formik.resetForm()} className="rounded-lg bg-gray-100 px-8 py-3 font-semibold text-gray-600 transition-all hover:bg-gray-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Cancel</button>
                 </div>
             </form>
         </div>

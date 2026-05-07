@@ -1,9 +1,9 @@
 const Logo = () => (
-  <div className="flex items-center">
-    <div className="bg-[#1A2C3C] text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-[22px] mr-2">
+  <div className="flex min-w-0 items-center">
+    <div className="mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#1A2C3C] text-[20px] font-bold text-white sm:h-10 sm:w-10 sm:text-[22px]">
       L
     </div>
-    <span className="font-bold text-[20px] text-slate-950 transition-colors dark:text-white">
+    <span className="truncate text-lg font-bold text-slate-950 transition-colors dark:text-white sm:text-[20px]">
       LuxeEstate
     </span>
   </div>

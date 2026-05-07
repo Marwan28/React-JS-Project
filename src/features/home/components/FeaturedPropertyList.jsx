@@ -22,10 +22,10 @@ export default function FeaturedPropertyList() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col py-8 px-2 md:px-0">
-      <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-8 mt-8">
+    <div className="mx-auto flex w-full max-w-7xl flex-col px-4 py-8 sm:px-6">
+      <div className="mt-8 flex w-full flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-1">
+          <h2 className="mb-1 text-2xl font-bold sm:text-3xl md:text-4xl">
             Featured Properties
           </h2>
 
@@ -35,14 +35,14 @@ export default function FeaturedPropertyList() {
         </div>
 
         <button
-          className="border border-gray-200 rounded-lg px-6 py-2 text-base font-medium hover:bg-gray-50 transition flex items-center gap-2 mt-2 md:mt-0"
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 px-6 py-2 text-base font-medium transition hover:bg-gray-50 sm:w-auto"
           onClick={() => navigate("/listing")}
         >
           View All <span aria-hidden>›</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 py-8 px-4 md:px-8 w-full">
+      <div className="grid w-full grid-cols-1 gap-8 py-8 sm:grid-cols-2 lg:grid-cols-3">
         {properties.slice(0, 3).map((property) => (
           <div className="w-full h-full" key={property.id}>
             <PropertyCard property={property} />

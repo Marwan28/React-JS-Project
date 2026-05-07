@@ -2,16 +2,16 @@ import aboutpage from '../../../assets/about page.png';
 
 function OurStory() {
   return (
-    <section className='py-6 px-6 md:px-12 lg:px-24 bg-white transition-colors dark:bg-slate-950'>
-      <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center'>
+    <section className='bg-white px-4 py-8 transition-colors dark:bg-slate-950 sm:px-6 md:px-12 lg:px-24'>
+      <div className='mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 md:grid-cols-2 lg:gap-12'>
         
       
         <div>
-          <h2 className='text-4xl font-bold text-[#1a1a1a] dark:text-white mb-8'>
+          <h2 className='mb-6 text-3xl font-bold text-[#1a1a1a] dark:text-white sm:text-4xl lg:mb-8'>
             Our Story
           </h2>
 
-          <div className="space-y-6 text-gray-600 text-lg leading-relaxed dark:text-slate-400">
+          <div className="space-y-5 text-base leading-relaxed text-gray-600 dark:text-slate-400 sm:text-lg lg:space-y-6">
             <p>
               Founded in 1995, LuxeEstate has been at the forefront of luxury 
               real estate, connecting discerning clients with exceptional 
@@ -35,7 +35,7 @@ function OurStory() {
           <img 
             src={aboutpage} 
             alt="Luxury Modern House with Pool" 
-            className="rounded-3xl shadow-lg w-full object-cover h-[400px] md:h-[500px]"
+            className="h-[280px] w-full rounded-2xl object-cover shadow-lg sm:h-[400px] md:h-[500px] lg:rounded-3xl"
           />
         </div>
 

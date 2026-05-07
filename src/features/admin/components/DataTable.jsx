@@ -54,7 +54,7 @@ const DataTable = ({
     return (
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-colors dark:border-slate-800 dark:bg-slate-900">
             {searchable && (
-                <div className="border-b border-gray-200 p-4 dark:border-slate-800">
+                <div className="border-b border-gray-200 p-3 dark:border-slate-800 sm:p-4">
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-slate-500" />
                         <input
@@ -69,14 +69,14 @@ const DataTable = ({
             )}
 
             <div className="overflow-x-auto">
-                <table className="w-full min-w-[980px]">
+                <table className="w-full min-w-[760px] lg:min-w-[980px]">
                     <thead className="bg-gray-50 dark:bg-slate-950/60">
                         <tr>
                             {columns.map((column) => (
                                 <th
                                     key={column.key}
                                     onClick={() => column.sortable && handleSort(column.key)}
-                                    className={`px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 ${column.sortable ? "cursor-pointer select-none hover:bg-gray-100 dark:hover:bg-slate-800/70" : ""}`}
+                                    className={`px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 sm:px-6 sm:py-4 ${column.sortable ? "cursor-pointer select-none hover:bg-gray-100 dark:hover:bg-slate-800/70" : ""}`}
                                 >
                                     <div className="flex items-center gap-2">
                                         {column.label}
@@ -94,7 +94,7 @@ const DataTable = ({
                                 </th>
                             ))}
                             {actions && (
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700 dark:text-slate-200">
+                                <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 sm:px-6 sm:py-4">
                                     Actions
                                 </th>
                             )}
@@ -106,7 +106,7 @@ const DataTable = ({
                             <tr>
                                 <td
                                     colSpan={columns.length + (actions ? 1 : 0)}
-                                    className="px-6 py-12 text-center text-sm font-medium text-gray-500 dark:text-slate-400"
+                                    className="px-4 py-10 text-center text-sm font-medium text-gray-500 dark:text-slate-400 sm:px-6 sm:py-12"
                                 >
                                     No data found
                                 </td>
@@ -118,12 +118,12 @@ const DataTable = ({
                                     className="transition-colors hover:bg-gray-50 dark:hover:bg-slate-800/50"
                                 >
                                     {columns.map((column) => (
-                                        <td key={column.key} className="px-6 py-4 text-sm text-slate-700 dark:text-slate-200">
+                                        <td key={column.key} className="px-4 py-3 text-sm text-slate-700 dark:text-slate-200 sm:px-6 sm:py-4">
                                             {column.render ? column.render(item) : getValue(item, column.key)}
                                         </td>
                                     ))}
                                     {actions && (
-                                        <td className="px-6 py-4 text-sm text-slate-700 dark:text-slate-200">
+                                        <td className="px-4 py-3 text-sm text-slate-700 dark:text-slate-200 sm:px-6 sm:py-4">
                                             {actions(item)}
                                         </td>
                                     )}

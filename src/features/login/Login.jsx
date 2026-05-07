@@ -54,7 +54,7 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 shadow-md">
+        <div className="rounded-2xl bg-white p-5 shadow-md sm:p-8">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -169,7 +169,7 @@ export default function Login() {
                 </div>
 
                 {/* Remember */}
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-2">
                     <input
                       type="checkbox"

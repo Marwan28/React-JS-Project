@@ -109,16 +109,16 @@ const AdminSettings = () => {
         <div className="flex min-h-screen bg-[#f8fafc] text-slate-950 dark:bg-slate-950 dark:text-slate-100">
             <AdminSidebar />
 
-            <div className="ml-64 flex-1">
+            <div className="min-w-0 flex-1 lg:ml-64">
                 <AdminHeader
                     theme={theme}
                     onToggleTheme={toggleTheme}
                     adminName={user?.name || formData.name || "Admin User"}
                 />
 
-                <main className="mx-auto max-w-5xl space-y-6 p-8">
+                <main className="mx-auto max-w-5xl space-y-6 px-4 py-6 pb-24 sm:px-6 lg:p-8">
                     <div>
-                        <h1 className="text-3xl font-bold dark:text-white">Settings</h1>
+                        <h1 className="text-2xl font-bold dark:text-white sm:text-3xl">Settings</h1>
                         <p className="mt-2 text-sm text-gray-500 dark:text-slate-400">
                             Manage your admin profile and platform information.
                         </p>
@@ -163,11 +163,11 @@ const AdminSettings = () => {
                                     ))}
                                 </div>
 
-                                <div className="flex justify-between pt-6 border-t">
+                                <div className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:justify-between">
                                     <button
                                         type="button"
                                         onClick={handleLogout}
-                                        className="bg-red-700 text-white px-6 py-3 rounded-lg flex items-center gap-2"
+                                        className="flex items-center justify-center gap-2 rounded-lg bg-red-700 px-6 py-3 text-white"
                                     >
                                         <LogOut className="h-4 w-4" />
                                         Logout
@@ -176,7 +176,7 @@ const AdminSettings = () => {
                                     <button
                                         type="submit"
                                         disabled={saving}
-                                        className="bg-[#344d60] text-white px-6 py-3 rounded-lg flex items-center gap-2"
+                                        className="flex items-center justify-center gap-2 rounded-lg bg-[#344d60] px-6 py-3 text-white"
                                     >
                                         {saving ? <Loader2 className="animate-spin h-4 w-4" /> : <Save className="h-4 w-4" />}
                                         {saving ? "Saving..." : "Save Profile"}
@@ -219,8 +219,8 @@ const AdminSettings = () => {
                                 />
                             </Field>
 
-                            <div className="flex justify-end pt-6 border-t">
-                                <button className="bg-[#344d60] text-white px-6 py-3 rounded-lg flex items-center gap-2">
+                            <div className="flex justify-end border-t pt-6">
+                                <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#344d60] px-6 py-3 text-white sm:w-auto">
                                     <Save className="h-4 w-4" />
                                     Save Platform Info
                                 </button>
@@ -234,7 +234,7 @@ const AdminSettings = () => {
 };
 
 const SettingsCard = ({ icon: Icon, title, description, children }) => (
-    <section className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow">
+    <section className="rounded-xl bg-white p-4 shadow dark:bg-slate-900 sm:p-6">
         <div className="flex items-center gap-3 mb-4">
             <Icon className="h-5 w-5" />
             <h2 className="text-lg font-semibold">{title}</h2>
@@ -257,11 +257,13 @@ const Field = ({ label, icon: Icon, error, children }) => (
 
 const StatusMessage = ({ status, fallbackError }) => {
     const message = status.message || fallbackError;
+    const isSuccess = status.type === "success";
+
     if (!message) return null;
 
     return (
-        <div className="flex items-center gap-2 text-sm text-red-500">
-            <AlertCircle className="h-4 w-4" />
+        <div className={`flex items-center gap-2 text-sm ${isSuccess ? "text-green-600" : "text-red-500"}`}>
+            {isSuccess ? <CheckCircle2 className="h-4 w-4" /> : <AlertCircle className="h-4 w-4" />}
             {message}
         </div>
     );

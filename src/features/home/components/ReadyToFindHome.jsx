@@ -4,24 +4,24 @@ import { useNavigate } from "react-router-dom";
 export default function ReadyToFindHome() {
   const navigate = useNavigate();
   return (
-    <section className="w-full flex flex-col items-center justify-center py-16">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4">
+    <section className="flex w-full flex-col items-center justify-center px-4 py-14 sm:px-6 sm:py-16">
+      <h2 className="mb-4 text-center text-2xl font-extrabold sm:text-3xl md:text-4xl">
         Ready to Find Your Perfect Home?
       </h2>
-      <p className="text-gray-500 text-center mb-8 max-w-xl">
+      <p className="mb-8 max-w-xl text-center text-gray-500">
         Join thousands of satisfied clients who found their dream properties
         with LuxeEstate
       </p>
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex w-full max-w-md flex-col gap-4 sm:w-auto sm:max-w-none sm:flex-row">
         <button
           onClick={() => navigate("/listing")}
-          className="bg-[#1A2C3C] hover:bg-[#183D4B] text-white font-semibold px-8 py-3 rounded transition-colors text-lg shadow-sm"
+          className="rounded bg-[#1A2C3C] px-8 py-3 text-lg font-semibold text-white shadow-sm transition-colors hover:bg-[#183D4B]"
         >
           Browse Listings
         </button>
         <button
           onClick={() => navigate("/contact_us")}
-          className="bg-white border border-gray-300 hover:bg-gray-50 text-[#183D4B] font-semibold px-8 py-3 rounded transition-colors text-lg shadow-sm"
+          className="rounded border border-gray-300 bg-white px-8 py-3 text-lg font-semibold text-[#183D4B] shadow-sm transition-colors hover:bg-gray-50"
         >
           Contact Us
         </button>

@@ -13,9 +13,9 @@ function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f4f0] p-4 font-sans transition-colors dark:bg-slate-950"> 
+    <div className="min-h-screen bg-[#f5f4f0] px-4 py-6 font-sans transition-colors dark:bg-slate-950 sm:px-6"> 
      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-20"> 
+      <div className="mx-auto mb-20 grid max-w-7xl grid-cols-1 gap-4 lg:grid-cols-3"> 
 
         <ProfileSidebar
           isEditing={isEditing}
